@@ -1,0 +1,6 @@
+www:
+    type: perl
+    approot: app
+
+data:
+    type: mongodb

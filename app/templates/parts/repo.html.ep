@@ -1,0 +1,10 @@
+<div class="reponame"><h3><a href="<%= $repo->{html_url} %>"><%= $repo->{name} %></a></h3></div>
+<div class="item">
+    <ul>
+        <% if ($repo->{homepage}) { %><li><a href="<%= $repo->{homepage} %>"><%= $repo->{homepage} %></a></li><% } %>
+        <% if ($repo->{description}) { %><li>Description: <%= $repo->{description} %></li><% } %>
+        <li>Watchers: <%= $repo->{watchers} %></li>
+        <li>Forks: <%= $repo->{forks} %></li>
+        <% if ($repo->{language}) { %><li>Language: <%= $repo->{language} %></li><% } %>
+    </ul>
+</div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset='utf-8' />
+    <title>Github Meets CPAN<% if ($title) { %>: <%= title %><% } %></title>
+    <link rel="stylesheet" href="<%= url_for '/static/screen.css' %>" type="text/css" /> 
+</head>
+<body>
+<p>
+    <a href="https://github.com"><img src="<%= url_for '/static/github.png' %>" alt="Github" /></a>
+    <span class="heart"><a href="<%= url_for '/' %>">&#9829;</a></span>
+    <a href="https://metacpan.org"><img src="<%= url_for '/static/cpan.png' %>" alt="CPAN" /></a></p>
+<%= content %>
+</body>
+</html>

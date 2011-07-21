@@ -1,0 +1,71 @@
+{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0 auto;
+    width: 800px;
+    font: 15px/22px Helvetica, Arial, sans-serif;
+    background: #f0f0f0;
+}
+
+h2 {
+    font-size: 28px;
+    line-height: 44px;
+    padding: 22px 0;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+}
+
+div.name h3 {
+    padding-left: 102px;
+}
+
+div.reponame h3 {
+    padding-left: 10px;
+}
+
+div.item {
+    padding: 21px;
+    background: #E3E3E3;
+    border: 1px solid #d7d7d7;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    width: 80%;
+    margin-bottom: 2em;
+}
+
+div.avatar {
+    clear: both;
+    padding: 8px;
+    background: #E3E3E3;
+    border: 1px solid #a7a7a7;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    width: 80px;
+    height: 80px;
+    float: left;
+}
+
+div.name {
+    margin-top:90px;
+}
+
+img.avatar {
+    width: 80px;
+    height: 80px;
+}
+
+span.heart {
+    font-size: 800%;
+}
+
+span.heart a {
+    text-decoration: none;
+    color: #000;
+}

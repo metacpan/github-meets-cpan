@@ -1,0 +1,12 @@
+% layout 'default';
+% title $user->{name};
+<div class="item"><a href="<%= url_for '/' %>">« back</a></div>
+<%= include 'parts/user' %>
+<% if ($repos->count) { %>
+    <div class="repos">
+        <h2>Repositories</h2>
+        % while (my $repo = $repos->next) {
+            <%= include 'parts/repo', repo => $repo %>
+        % }
+    </div>
+<% } %>
