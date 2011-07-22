@@ -3,6 +3,7 @@ package GMC::Cron::Update;
 use strict;
 use warnings;
 use DateTime;
+use File::Copy qw(move);
 use GMC::Util qw(mongodb_config);
 use JSON::Any;
 use LWP::UserAgent;
@@ -10,8 +11,9 @@ use Mojo::Base -base;
 use Mojo::Log;
 use MongoDB;
 use Pithub;
+use Term::ProgressBar;
 
-__PACKAGE__->attr( [qw(db json log lwp mcpan pithub)] );
+__PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
 
 sub new {
     my ( $package, %args ) = @_;
@@ -20,11 +22,12 @@ sub new {
 
     return bless {
         db     => $mongo->db,
+        home   => $args{home},
         json   => JSON::Any->new,
-        log    => Mojo::Log->new,
+        log    => Mojo::Log->new( path => "$args{home}/log/update.log" ),
         lwp    => LWP::UserAgent->new,
-        pithub => Pithub->new( per_page => 100, auto_pagination => 1 ),
         mcpan  => 'http://api.metacpan.org/author/_search?q=profile.name:github&size=100000',
+        pithub => Pithub->new( per_page => 100, auto_pagination => 1 ),
     } => $package;
 }
 
@@ -33,7 +36,11 @@ sub run {
 
     my $users = $self->fetch_metacpan_users;
 
+    my $progress = Term::ProgressBar->new( { count => scalar(@$users) } );
+    my $count = 0;
+
     foreach my $user (@$users) {
+        $progress->update( ++$count );
         $self->create_or_update_user($user) or next;
         $self->update_repos($user);
     }
@@ -43,6 +50,11 @@ sub run {
     $self->db->status->insert( { last_update => $now } );
 
     $self->log->info("FINISHED.");
+
+    my $src = sprintf '%s/log/update.log',        $self->home;
+    my $dst = sprintf '%s/static/update.log.txt', $self->home;
+
+    move( $src, $dst );
 }
 
 sub update_repos {

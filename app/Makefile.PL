@@ -9,5 +9,6 @@ WriteMakefile(
         'Mojolicious::Plugin::Mongodb' => '1.07',
         'MongoDB'                      => '0.43',
         'Pithub'                       => '0.01005',
+        'Term::ProgressBar'            => '2.09',
     }
 );

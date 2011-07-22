@@ -4,4 +4,4 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use GMC::Cron::Update;
-GMC::Cron::Update->new->run;
+GMC::Cron::Update->new( home => "$FindBin::Bin/../" )->run;
