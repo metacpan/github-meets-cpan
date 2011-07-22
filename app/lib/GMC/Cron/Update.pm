@@ -55,9 +55,13 @@ sub update_repos {
         $rank += $repo->{forks};
     }
 
-    my $cond = { _id => $user->{_id} };
-    my $update = { languages => \%languages, rank => $rank, };
-    $self->db->users->update( $cond, { '$set' => $update } ) if %languages;
+    my $cond   = { _id  => $user->{_id} };
+    my $update = { rank => $rank };
+    if (%languages) {
+        $update->{languages} = \%languages;
+    }
+
+    $self->db->users->update( $cond, { '$set' => $update } );
 
     if (@$repos) {
         $self->db->repos->remove( { _user_id => $user->{_id} } );
