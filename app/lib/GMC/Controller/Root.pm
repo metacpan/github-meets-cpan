@@ -11,6 +11,11 @@ sub about {
     );
 }
 
+sub faq {
+    my ($self) = @_;
+    $self->stash( db_status => $self->db->status->find->next );
+}
+
 sub list {
     my ($self) = @_;
     my $users = $self->db->users->find->sort( { rank => -1 } );
