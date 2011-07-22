@@ -45,14 +45,19 @@ sub update_repos {
 
     my $repos = $self->fetch_github_repos( $user->{github_user} );
 
+    my $rank = $user->{github_data}{followers};
+
     my %languages = ();
     foreach my $repo (@$repos) {
         $repo->{_user_id} = $user->{_id};
         $languages{ $repo->{language} }++ if $repo->{language};
+        $rank += $repo->{watchers};
+        $rank += $repo->{forks};
     }
 
     my $cond = { _id => $user->{_id} };
-    $self->db->users->update( $cond, { '$set' => { languages => \%languages } } ) if %languages;
+    my $update = { languages => \%languages, rank => $rank, };
+    $self->db->users->update( $cond, { '$set' => $update } ) if %languages;
 
     if (@$repos) {
         $self->db->repos->remove( { _user_id => $user->{_id} } );

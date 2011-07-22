@@ -1,10 +1,11 @@
 <div class="avatar" id="<%= $user->{pauseid} %>"><a href="<%= url_for '/user/'. $user->{pauseid} %>"><img class="avatar" src="<%= $user->{gravatar_url} %>" alt="Avatar" /></a></div>
-<div class="name"><h3><a href="<%= url_for '/user/'. $user->{pauseid} %>"><%= $user->{name} %></a></h3></div>
+<div class="name"><h3><% if ($pos) { %><%= $pos %>. <% } %><a href="<%= url_for '/user/'. $user->{pauseid} %>"><%= $user->{name} %></a></h3></div>
 <div class="item">
     <ul>
         <li>On MetaCPAN: <a href="<%= $user->{metacpan_url} %>"><%= $user->{metacpan_url} %></a></li>
         <li>On Github: <a href="<%= $user->{github_data}{html_url} %>"><%= $user->{github_data}{html_url} %></a></li>
         <% if ($user->{github_data}{blog}) { %><li>Blog: <a href="<%= $user->{github_data}{blog} %>"><%= $user->{github_data}{blog} %></a></li><% } %>
+        <li>Rank: <%= $user->{rank} %></li>
         <li>Followers: <%= $user->{github_data}{followers} %></li>
         <li>Public Repos: <%= $user->{github_data}{public_repos} %></li>
         <li>Public Gists: <%= $user->{github_data}{public_gists} %></li>

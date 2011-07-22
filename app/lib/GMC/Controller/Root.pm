@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 
 sub list {
     my ($self) = @_;
-    my $users = $self->db->users->find->sort( { name => 1 } );
+    my $users = $self->db->users->find->sort( { rank => -1 } );
     $self->stash( users => $users );
 }
 

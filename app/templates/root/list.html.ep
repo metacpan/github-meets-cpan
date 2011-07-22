@@ -8,9 +8,16 @@
     (<a href="https://github.com/plu/Pithub">Pithub</a>) to gather all the information
     presented here. It is hosted at <a href="http://dotcloud.com">dotCloud</a> and uses the
     <a href="http://mojolicious.org/">Mojolicious Web Framework</a>. The guy who was so
-    bored to write this is called <a href="<%= url_for '/user/PLU' %>">plu</a>.
+    bored to write this is called <a href="<%= url_for '/user/PLU' %>">plu</a>. The
+    rank is calculated by this formula:<br/>
+    <pre>  (count of your followers)
++ (sum of watchers of all of your repositories)
++ (sum of forks of all of your repositories)
+= rank</pre>
     <p>Currently there are <%= $users->count %> users listed.</p>
 </div>
+% my $pos = 1;
 % while (my $user = $users->next) {
-    <%= include 'parts/user', user => $user %>
+    <%= include 'parts/user', user => $user, pos => $pos %>
+    % $pos++;
 % }

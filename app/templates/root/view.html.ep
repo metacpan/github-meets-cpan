@@ -1,7 +1,7 @@
 % layout 'default';
 % title $user->{name};
 <div class="item"><a href="<%= url_for '/' %>">« back</a></div>
-<%= include 'parts/user' %>
+<%= include 'parts/user', pos => 0 %>
 <% if ($repos->count) { %>
     <div class="repos">
         <h2>Repositories</h2>
