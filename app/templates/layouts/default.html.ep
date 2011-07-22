@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="<%= url_for '/static/screen.css' %>" type="text/css" /> 
 </head>
 <body>
+<a href="https://github.com/plu/github-meets-cpan"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" /></a>
 <p>
     <a href="https://github.com"><img src="<%= url_for '/static/github.png' %>" alt="Github" /></a>
     <span class="heart"><a href="<%= url_for '/' %>">&#9829;</a></span>
