@@ -128,3 +128,7 @@ span.heart a {
 abbr {
     font-weight: bold;
 }
+
+img {
+    border: 0;
+}
