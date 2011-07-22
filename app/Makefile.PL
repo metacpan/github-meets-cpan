@@ -3,6 +3,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     PREREQ_PM => {
+        'App::Cronjob'                 => '1.102311',
         'DateTime'                     => '0.70',
         'LWP::UserAgent'               => '6.02',
         'Mojolicious'                  => '1.64',
