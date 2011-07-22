@@ -5,13 +5,19 @@ use Mojo::Base 'Mojolicious::Controller';
 sub about {
     my ($self) = @_;
     my $count = $self->db->users->find->sort( { rank => -1 } )->count;
-    $self->stash( count => $count );
+    $self->stash(
+        count     => $count,
+        db_status => $self->db->status->find->next,
+    );
 }
 
 sub list {
     my ($self) = @_;
     my $users = $self->db->users->find->sort( { rank => -1 } );
-    $self->stash( users => $users );
+    $self->stash(
+        db_status => $self->db->status->find->next,
+        users     => $users,
+    );
 }
 
 sub view {
@@ -24,8 +30,9 @@ sub view {
     }
     my $repos = $self->db->repos->find( { _user_id => $user->{_id} } )->sort( { name => 1 } );
     $self->stash(
-        repos => $repos,
-        user  => $user,
+        db_status => $self->db->status->find->next,
+        repos     => $repos,
+        user      => $user,
     );
 }
 

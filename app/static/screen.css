@@ -57,6 +57,17 @@ div.top div.logos {
     float: right;
 }
 
+div.top div.status {
+    clear: both;
+    float: right;
+    font-size: 80%;
+    background: #eeeeee;
+    border: 1px solid #aaaaaa;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    padding: 4px 10px 4px 10px;
+}
+
 div.top, div.item {
     clear: both;
     position:relative;

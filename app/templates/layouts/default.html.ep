@@ -20,6 +20,7 @@
         <span class="heart"><a href="<%= url_for '/' %>">&#9829;</a></span>
         <a href="https://metacpan.org"><img src="<%= url_for '/static/cpan.png?1' %>" alt="CPAN" /></a>
     </div>
+    <% if ($db_status) { %><div class="status">Last Update: <%= $db_status->{last_update} %></div><% } %>
 </div>
 <div class="content">
 <%= content %>

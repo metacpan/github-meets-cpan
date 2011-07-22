@@ -2,6 +2,7 @@ package GMC::Cron::Update;
 
 use strict;
 use warnings;
+use DateTime;
 use GMC::Util qw(mongodb_config);
 use JSON::Any;
 use LWP::UserAgent;
@@ -36,6 +37,10 @@ sub run {
         $self->create_or_update_user($user) or next;
         $self->update_repos($user);
     }
+
+    my $now = sprintf '%s', DateTime->now;
+    $self->db->status->remove;
+    $self->db->status->insert( { last_update => $now } );
 
     $self->log->info("FINISHED.");
 }
