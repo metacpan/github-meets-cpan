@@ -6,8 +6,8 @@
         <li>On Github: <a href="<%= $user->{github_data}{html_url} %>"><%= $user->{github_data}{html_url} %></a></li>
         <% if ($user->{github_data}{blog}) { %><li>Blog: <a href="<%= $user->{github_data}{blog} %>"><%= $user->{github_data}{blog} %></a></li><% } %>
         <li>Rank: <%= $user->{rank} %></li>
-        <li>Followers: <%= $user->{github_data}{followers} %></li>
-        <li>Public Repos: <%= $user->{github_data}{public_repos} %></li>
+        <li><a href="https://github.com/<%= $user->{github_user} %>/followers">Followers</a>: <%= $user->{github_data}{followers} %></li>
+        <li><a href="https://github.com/<%= $user->{github_user} %>/repositories">Public Repos</a>: <%= $user->{github_data}{public_repos} %></li>
         <li>Public Gists: <%= $user->{github_data}{public_gists} %></li>
         % if ($user->{languages}) {
             <li>Languages:
@@ -20,6 +20,6 @@
         % }
         <% if ($user->{github_data}{location}) { %><li>Location: <%= $user->{github_data}{location} %></li><% } %>
         <% if ($user->{github_data}{company}) { %><li>Company: <%= $user->{github_data}{company} %></li><% } %>
-        <% if ($user->{coderwall_data}) { %><li>Coderwall Badges: <%= scalar @{ $user->{coderwall_data}{badges} || [] } %></li><% } %>
+        <% if ($user->{coderwall_data}) { %><li><a href="http://coderwall.com/<%= $user->{github_user} %>">Coderwall</a> Badges: <%= scalar @{ $user->{coderwall_data}{badges} || [] } %></li><% } %>
     </ul>
 </div>
