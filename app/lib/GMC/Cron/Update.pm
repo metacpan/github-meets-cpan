@@ -33,7 +33,7 @@ sub run {
     my $users = $self->fetch_metacpan_users;
 
     foreach my $user (@$users) {
-        $self->create_or_update_user($user);
+        $self->create_or_update_user($user) or next;
         $self->update_repos($user);
     }
 
@@ -74,6 +74,8 @@ sub create_or_update_user {
 
     $user->{github_data} = $self->fetch_github_user( $user->{github_user} );
 
+    return unless $user->{github_data};
+
     my $cond = { pauseid => $user->{pauseid} };
 
     my $db_user = $self->db->users->find($cond);
@@ -87,13 +89,15 @@ sub create_or_update_user {
         $user->{_id} = $id;
         $self->log->info("Adding new user $user->{pauseid}");
     }
+
+    return 1;
 }
 
 sub fetch_github_user {
     my ( $self, $github_user ) = @_;
 
     my $result = $self->pithub->users->get( user => $github_user );
-    my $github_data = {};
+    my $github_data;
 
     if ( $result->success ) {
         $github_data = $result->content;
