@@ -99,7 +99,7 @@ sub fetch_github_user {
     my $result = $self->pithub->users->get( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->warn( sprintf "Could not fetch user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
+        $self->log->error( sprintf "Could not fetch user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
         return;
     }
 
@@ -115,7 +115,7 @@ sub fetch_github_repos {
     my $result = $self->pithub->repos->list( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->warn( sprintf "Could not fetch repos of user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
+        $self->log->error( sprintf "Could not fetch repos of user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
         return;
     }
 
@@ -141,7 +141,7 @@ sub fetch_coderwall_user {
 
     my $data = eval { $self->json->decode( $response->content ) };
     if ($@) {
-        $self->log->warn("Error decoding coderwall data: $@");
+        $self->log->warn( sprintf "Error decoding data from %s: %s", $url, $@ );
         return;
     }
 
