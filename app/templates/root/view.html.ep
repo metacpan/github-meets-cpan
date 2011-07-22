@@ -2,6 +2,16 @@
 % title $user->{name};
 <div class="item"><a href="<%= url_for '/' %>">« back</a></div>
 <%= include 'parts/user', pos => 0 %>
+<% if ($user->{coderwall_data}) { %>
+    <div class="repos">
+        <h2>Coderwall Badges</h2>
+        <div class="item">
+            % foreach my $badge (@{ $user->{coderwall_data}{badges}} ) {
+                <img width="64" height="64" src="<%= $badge->{badge} %>" alt="<%= $badge->{name} %>" title="<%= $badge->{description}%>" />
+            % }
+        </div>
+    </div>
+<% } %>
 <% if ($repos->count) { %>
     <div class="repos">
         <h2>Repositories</h2>

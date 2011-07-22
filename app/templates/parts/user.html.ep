@@ -20,5 +20,6 @@
         % }
         <% if ($user->{github_data}{location}) { %><li>Location: <%= $user->{github_data}{location} %></li><% } %>
         <% if ($user->{github_data}{company}) { %><li>Company: <%= $user->{github_data}{company} %></li><% } %>
+        <% if ($user->{coderwall_data}) { %><li>Coderwall Badges: <%= scalar @{ $user->{coderwall_data}{badges} || [] } %></li><% } %>
     </ul>
 </div>

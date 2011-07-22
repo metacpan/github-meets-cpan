@@ -43,7 +43,7 @@ sub run {
 sub update_repos {
     my ( $self, $user ) = @_;
 
-    my $repos = $self->fetch_github_repos( $user->{github_user} );
+    my $repos = $self->fetch_github_repos($user);
 
     my $rank = $user->{github_data}{followers};
 
@@ -72,9 +72,8 @@ sub update_repos {
 sub create_or_update_user {
     my ( $self, $user ) = @_;
 
-    $user->{github_data} = $self->fetch_github_user( $user->{github_user} );
-
-    return unless $user->{github_data};
+    $self->fetch_github_user($user) or return;
+    $self->fetch_coderwall_user($user);
 
     my $cond = { pauseid => $user->{pauseid} };
 
@@ -94,39 +93,61 @@ sub create_or_update_user {
 }
 
 sub fetch_github_user {
-    my ( $self, $github_user ) = @_;
+    my ( $self, $user ) = @_;
 
+    my $github_user = $user->{github_user};
     my $result = $self->pithub->users->get( user => $github_user );
-    my $github_data;
 
-    if ( $result->success ) {
-        $github_data = $result->content;
-        $self->log->info("Successfully fetched user ${github_user} from Github");
-    }
-    else {
+    unless ( $result->success ) {
         $self->log->warn("Could not fetch user ${github_user} from Github");
+        return;
     }
 
-    return $github_data;
+    $user->{github_data} = $result->content;
+    $self->log->info("Successfully fetched user ${github_user} from Github");
+    return 1;
 }
 
 sub fetch_github_repos {
-    my ( $self, $github_user ) = @_;
+    my ( $self, $user ) = @_;
 
+    my $github_user = $user->{github_user};
     my $result = $self->pithub->repos->list( user => $github_user );
-    my $repos = [];
 
-    if ( $result->success ) {
-        while ( my $row = $result->next ) {
-            push @$repos, $row;
-        }
-        $self->log->info("Successfully fetched repos of user ${github_user} from Github");
-    }
-    else {
+    unless ( $result->success ) {
         $self->log->warn("Could not fetch repos of user ${github_user} from Github");
+        return;
     }
 
-    return $repos;
+    my @repos = ();
+    while ( my $row = $result->next ) {
+        push @repos, $row;
+    }
+    $self->log->info("Successfully fetched repos of user ${github_user} from Github");
+
+    return \@repos;
+}
+
+sub fetch_coderwall_user {
+    my ( $self, $user ) = @_;
+
+    my $url = sprintf 'http://coderwall.com/%s.json', $user->{github_user};
+    my $response = $self->lwp->get($url);
+
+    unless ( $response->is_success ) {
+        $self->log->warn( sprintf "Fetching data from %s failed: %s", $url, $response->status_line );
+        return;
+    }
+
+    my $data = eval { $self->json->decode( $response->content ) };
+    if ($@) {
+        $self->log->warn("Error decoding coderwall data: $@");
+        return;
+    }
+
+    $self->log->info("Successfully fetched coderwall data from ${url}");
+
+    $user->{coderwall_data} = $data;
 }
 
 sub fetch_metacpan_users {
