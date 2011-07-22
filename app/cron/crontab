@@ -1,4 +1,2 @@
 MAILTO=""
-PATH=/home/dotcloud/perl5/bin:/opt/perl5/perls/current/bin:$PATH
-PERL5LIB=/home/dotcloud/perl5/lib/perl5
-49 * * * * cronjob -E -s 'GMC Update' -r plu@pqpq.de -c ~/current/cron/update.pl
+49 * * * * ~/current/cron/wrapper.sh cronjob -E -s 'GMC Update' -r plu@pqpq.de -c ~/current/cron/update.pl
