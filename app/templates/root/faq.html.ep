@@ -36,8 +36,11 @@
     </p>
     <p>
         <abbr title="Answer">A:</abbr>
-        Currently only manually a few times a day, sorry. Hopefully this will
-        change soon.
+        Currently the data is updated once per hour, the cronjob starts at
+        49 * * * * and usually takes around 2-3 minutes. You can even see the
+        <a href="<%= url_for '/static/update.log.txt' %>">update log file</a>.
+        Once I did a fresh deployment of the software the logfile might be
+        empty until the next run.
     </p>
 </div>
 
