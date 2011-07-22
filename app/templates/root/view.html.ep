@@ -1,6 +1,5 @@
 % layout 'default';
 % title $user->{name};
-<div class="item"><a href="<%= url_for '/' %>">« back</a></div>
 <%= include 'parts/user', pos => 0 %>
 <% if ($user->{coderwall_data}) { %>
     <div class="repos">

@@ -2,6 +2,12 @@ package GMC::Controller::Root;
 
 use Mojo::Base 'Mojolicious::Controller';
 
+sub about {
+    my ($self) = @_;
+    my $count = $self->db->users->find->sort( { rank => -1 } )->count;
+    $self->stash( count => $count );
+}
+
 sub list {
     my ($self) = @_;
     my $users = $self->db->users->find->sort( { rank => -1 } );

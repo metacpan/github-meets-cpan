@@ -1,0 +1,20 @@
+% layout 'default';
+% title 'About';
+<div class="item">
+    "Github Meets CPAN" presents a list of users who have set their
+    <a href="https://github.com">Github</a> account at
+    <a href="https://metacpan.org">MetaCPAN</a>. This app uses the
+    <a href="https://github.com/CPAN-API/cpan-api/wiki/Beta-API-docs">MetaCPAN API</a>
+    as well as the <a href="http://developer.github.com/v3/">Github API</a>
+    (<a href="https://github.com/plu/Pithub">Pithub</a>) to gather all the information
+    presented here. It is hosted at <a href="http://dotcloud.com">dotCloud</a> and uses the
+    <a href="http://mojolicious.org/">Mojolicious Web Framework</a>. The guy who was so
+    bored to write this is called <a href="<%= url_for '/user/PLU' %>">plu</a>. The
+    rank is calculated by this formula:<br/>
+    <pre>  (count of your followers)
++ (sum of watchers of all of your repositories)
++ (sum of forks of all of your repositories)
+= rank</pre>
+    <p>Currently there are <%= $count %> users listed.</p>
+</div>
+

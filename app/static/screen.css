@@ -5,7 +5,7 @@
 
 body {
     margin: 0 auto;
-    width: 800px;
+    width: 900px;
     font: 15px/22px Helvetica, Arial, sans-serif;
     background: #f0f0f0;
 }
@@ -27,10 +27,40 @@ div.name h3 {
 }
 
 div.reponame h3 {
+    position: relative;
+    top: -32px;
     padding-left: 10px;
 }
 
-div.item {
+div.top div.navigation {
+    float: left;
+}
+
+div.top div.navigation ul {
+    margin: 0;
+    padding: 0;
+}
+
+div.top div.navigation li {
+    background: #FFFFFF;
+    border: 1px solid #aaaaaa;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    float: left;
+    position: relative;
+    margin: 4px;
+    padding: 8px 20px 8px 20px;
+    list-style-type: none;
+}
+
+div.top div.logos {
+    float: right;
+}
+
+div.top, div.item {
+    clear: both;
+    position:relative;
+    top: -32px;
     padding: 21px;
     background: #E3E3E3;
     border: 1px solid #d7d7d7;
@@ -41,7 +71,9 @@ div.item {
 }
 
 div.avatar {
-    clear: both;
+    position: relative;
+    z-index: 1;
+    left: 8px;
     padding: 8px;
     background: #E3E3E3;
     border: 1px solid #a7a7a7;
@@ -52,8 +84,18 @@ div.avatar {
     float: left;
 }
 
+div.top {
+    position: relative;
+    top: -15px;
+    padding-bottom: 4px;
+    height: 56px;
+}
+
 div.name {
-    margin-top:90px;
+    clear: both;
+    position: relative;
+    top: -34px;
+    left: 8px;
 }
 
 img.avatar {
@@ -62,10 +104,14 @@ img.avatar {
 }
 
 span.heart {
-    font-size: 800%;
+    font-size: 400%;
 }
 
 span.heart a {
     text-decoration: none;
     color: #000;
+}
+
+abbr {
+    font-weight: bold;
 }
