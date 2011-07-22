@@ -1,0 +1,19 @@
+
+=pod
+
+This project connects Github Users to
+L<MetaCPAN|https://metacpan.org> Users. It uses the
+APIs of both sites: First it fetches all users from
+L<MetaCPAN|https://metacpan.org> who have set their
+Github account. After that it fetches all public information
+about these users from Github. The app is deployed to
+L<http://dotcloud.com> and uses L<MongoDB|http://www.mongodb.org/>
+for storing the data. The software is written in Perl using the
+L<Mojolicious|https://github.com/kraih/mojo> framework.
+
+It's some sort of an index of CPAN authors and their Github
+accounts.
+
+See also: L<http://www.github-meets-cpan.com>
+
+=cut
