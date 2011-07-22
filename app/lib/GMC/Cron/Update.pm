@@ -99,12 +99,12 @@ sub fetch_github_user {
     my $result = $self->pithub->users->get( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->warn("Could not fetch user ${github_user} from Github");
+        $self->log->warn( sprintf "Could not fetch user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
         return;
     }
 
     $user->{github_data} = $result->content;
-    $self->log->info("Successfully fetched user ${github_user} from Github");
+    $self->log->info( sprintf "Successfully fetched user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
     return 1;
 }
 
@@ -115,7 +115,7 @@ sub fetch_github_repos {
     my $result = $self->pithub->repos->list( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->warn("Could not fetch repos of user ${github_user} from Github");
+        $self->log->warn( sprintf "Could not fetch repos of user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
         return;
     }
 
@@ -123,7 +123,7 @@ sub fetch_github_repos {
     while ( my $row = $result->next ) {
         push @repos, $row;
     }
-    $self->log->info("Successfully fetched repos of user ${github_user} from Github");
+    $self->log->info( sprintf "Successfully fetched repos of user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
 
     return \@repos;
 }
