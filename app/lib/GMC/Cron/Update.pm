@@ -49,7 +49,7 @@ sub run {
     $self->db->status->remove;
     $self->db->status->insert( { last_update => $now } );
 
-    $self->log->info("FINISHED.");
+    $self->log->info('FINISHED.');
 
     my $src = sprintf '%s/log/update.log',        $self->home;
     my $dst = sprintf '%s/static/update.log.txt', $self->home;
@@ -98,12 +98,12 @@ sub create_or_update_user {
     if ( $db_user->count ) {
         $self->db->users->update( $cond => { '$set' => $user } );
         $user->{_id} = $db_user->next->{_id};
-        $self->log->info("Updating user $user->{pauseid}");
+        $self->log->info( sprintf '%-9s Updating user', $user->{pauseid} );
     }
     else {
         my $id = $self->db->users->insert($user);
         $user->{_id} = $id;
-        $self->log->info("Adding new user $user->{pauseid}");
+        $self->log->info( sprintf '%-9s Adding new user', $user->{pauseid} );
     }
 
     return 1;
@@ -116,12 +116,12 @@ sub fetch_github_user {
     my $result = $self->pithub->users->get( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->error( sprintf "Could not fetch user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
+        $self->log->error( sprintf '%-9s Could not fetch user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
         return;
     }
 
     $user->{github_data} = $result->content;
-    $self->log->info( sprintf "Successfully fetched user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
+    $self->log->info( sprintf '%-9s Successfully fetched user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
     return 1;
 }
 
@@ -132,7 +132,7 @@ sub fetch_github_repos {
     my $result = $self->pithub->repos->list( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->error( sprintf "Could not fetch repos of user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
+        $self->log->error( sprintf '%-9s Could not fetch repos of user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
         return;
     }
 
@@ -140,7 +140,7 @@ sub fetch_github_repos {
     while ( my $row = $result->next ) {
         push @repos, $row;
     }
-    $self->log->info( sprintf "Successfully fetched repos of user %s from Github (RL:%d)", $github_user, $result->ratelimit_remaining );
+    $self->log->info( sprintf '%-9s Successfully fetched repos of user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
 
     return \@repos;
 }
@@ -152,17 +152,17 @@ sub fetch_coderwall_user {
     my $response = $self->lwp->get($url);
 
     unless ( $response->is_success ) {
-        $self->log->warn( sprintf "Fetching data from %s failed: %s", $url, $response->status_line );
+        $self->log->warn( sprintf '%-9s Fetching data from %s failed: %s', $user->{pauseid}, $url, $response->status_line );
         return;
     }
 
     my $data = eval { $self->json->decode( $response->content ) };
     if ($@) {
-        $self->log->warn( sprintf "Error decoding data from %s: %s", $url, $@ );
+        $self->log->warn( sprintf '%-9s Error decoding data from %s: %s', $user->{pauseid}, $url, $@ );
         return;
     }
 
-    $self->log->info("Successfully fetched coderwall data from ${url}");
+    $self->log->info( sprintf '%-9s Successfully fetched coderwall data from %s', $user->{pauseid}, $url );
 
     $user->{coderwall_data} = $data;
 }
@@ -170,7 +170,7 @@ sub fetch_coderwall_user {
 sub fetch_metacpan_users {
     my ($self) = @_;
 
-    $self->log->info("Fetching users from MetaCPAN ...");
+    $self->log->info('Fetching users from MetaCPAN ...');
 
     my $response = $self->lwp->get( $self->mcpan );
     die $response->status_line unless $response->is_success;
@@ -195,11 +195,11 @@ sub fetch_metacpan_users {
             gravatar_url => $row->{gravatar_url},
             name         => $row->{name},
             pauseid      => $row->{pauseid},
-            metacpan_url => "https://metacpan.org/author/" . $row->{pauseid},
+            metacpan_url => 'https://metacpan.org/author/' . $row->{pauseid},
           };
     }
 
-    $self->log->info("DONE");
+    $self->log->info('DONE');
 
     return \@result;
 }
