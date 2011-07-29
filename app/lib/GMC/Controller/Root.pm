@@ -33,7 +33,7 @@ sub view {
         $self->render_not_found;
         return;
     }
-    my $repos = $self->db->repos->find( { _user_id => $user->{_id} } )->sort( { name => 1 } );
+    my $repos = $self->db->repos->find( { _user_id => $user->{_id} } )->sort( { watchers => -1 } );
     $self->stash(
         db_status => $self->db->status->find->next,
         repos     => $repos,
