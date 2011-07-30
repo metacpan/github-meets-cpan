@@ -101,6 +101,7 @@ sub create_or_update_user {
         $self->log->info( sprintf '%-9s Updating user', $user->{pauseid} );
     }
     else {
+        $user->{created} = time;
         my $id = $self->db->users->insert($user);
         $user->{_id} = $id;
         $self->log->info( sprintf '%-9s Adding new user', $user->{pauseid} );
