@@ -11,7 +11,6 @@ use Mojo::Base -base;
 use Mojo::Log;
 use MongoDB;
 use Pithub;
-use Term::ProgressBar;
 
 __PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
 
@@ -36,11 +35,7 @@ sub run {
 
     my $users = $self->fetch_metacpan_users;
 
-    my $progress = Term::ProgressBar->new( { count => scalar(@$users) } );
-    my $count = 0;
-
     foreach my $user (@$users) {
-        $progress->update( ++$count );
         $self->create_or_update_user($user) or next;
         $self->update_repos($user);
     }
