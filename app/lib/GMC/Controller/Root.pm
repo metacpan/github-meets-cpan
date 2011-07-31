@@ -25,6 +25,15 @@ sub list {
     );
 }
 
+sub recent {
+    my ($self) = @_;
+    my $users = $self->db->users->find( { created => { '$gt' => time - 86400 } } )->sort( { rank => -1 } );
+    $self->stash(
+        db_status => $self->db->status->find->next,
+        users     => $users,
+    );
+}
+
 sub view {
     my ($self) = @_;
     my $pauseid = $self->match->captures->{user};

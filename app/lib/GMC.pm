@@ -23,6 +23,7 @@ sub startup {
     $r->route('/')->to('root#list');
     $r->route('/about')->to('root#about');
     $r->route('/faq')->to('root#faq');
+    $r->route('/recent')->to('root#recent');
     $r->route('/user/:user')->to('root#view');
 }
 

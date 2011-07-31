@@ -44,3 +44,15 @@
     </p>
 </div>
 
+<div class="item">
+    <p>
+        <abbr title="Question">Q:</abbr>
+        What is the "Recent" section?
+    </p>
+    <p>
+        <abbr title="Answer">A:</abbr>
+        A list of users, who have been added to github-meets-cpan.com in the
+        last 24 hours.
+    </p>
+</div>
+

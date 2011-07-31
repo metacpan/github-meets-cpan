@@ -11,6 +11,7 @@
     <div class="navigation">
         <ul>
             <li><a href="<%= url_for '/' %>">Ranking</a></li>
+            <li><a href="<%= url_for '/recent' %>">Recent</a></li>
             <li><a href="<%= url_for '/faq' %>">FAQ</a></li>
             <li><a href="<%= url_for '/about' %>">About</a></li>
         </ul>

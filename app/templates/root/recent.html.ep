@@ -1,0 +1,12 @@
+% layout 'default';
+% title 'Recent';
+% my $pos = 1;
+% if ($users->count) {
+    % while (my $user = $users->next) {
+        <%= include 'parts/user', user => $user, pos => $pos %>
+        % $pos++;
+    % }
+% }
+% else {
+    <div class="item"><p>There have been no new users added in the last 24 hours.</p></div>
+% }
