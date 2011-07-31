@@ -1,7 +1,5 @@
 % layout 'default';
 % title 'Ranking';
-% my $pos = 1;
 % while (my $user = $users->next) {
-    <%= include 'parts/user', user => $user, pos => $pos %>
-    % $pos++;
+    <%= include 'parts/user', user => $user %>
 % }

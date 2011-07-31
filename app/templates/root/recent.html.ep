@@ -1,10 +1,8 @@
 % layout 'default';
 % title 'Recent';
-% my $pos = 1;
 % if ($users->count) {
     % while (my $user = $users->next) {
-        <%= include 'parts/user', user => $user, pos => $pos %>
-        % $pos++;
+        <%= include 'parts/user', user => $user %>
     % }
 % }
 % else {

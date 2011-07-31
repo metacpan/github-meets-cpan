@@ -1,6 +1,6 @@
 % layout 'default';
 % title $user->{name};
-<%= include 'parts/user', pos => 0 %>
+<%= include 'parts/user' %>
 <% if ( $user->{coderwall_data} && scalar @{ $user->{coderwall_data}{badges} || [] } ) { %>
     <div class="repos">
         <h2>Coderwall Badges</h2>

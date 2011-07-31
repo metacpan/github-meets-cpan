@@ -44,12 +44,26 @@ sub run {
     $self->db->status->remove;
     $self->db->status->insert( { last_update => $now } );
 
+    $self->update_position;
+
     $self->log->info('FINISHED.');
 
     my $src = sprintf '%s/log/update.log',        $self->home;
     my $dst = sprintf '%s/static/update.log.txt', $self->home;
 
     move( $src, $dst );
+}
+
+sub update_position {
+    my ($self) = @_;
+    my $users = $self->db->users->find->sort( { rank => -1 } );
+    my $position = 1;
+    while ( my $user = $users->next ) {
+        my $cond   = { _id      => $user->{_id} };
+        my $update = { position => $position };
+        $self->db->users->update( $cond, { '$set' => $update } );
+        $position++;
+    }
 }
 
 sub update_repos {

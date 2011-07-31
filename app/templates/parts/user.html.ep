@@ -1,5 +1,5 @@
 <div class="avatar" id="<%= $user->{pauseid} %>"><a href="<%= url_for '/user/'. $user->{pauseid} %>"><img class="avatar" src="<%= $user->{gravatar_url} || 'http://www.gravatar.com/avatar/00000000000000000000000000000000' %>" alt="Avatar" /></a></div>
-<div class="name"><h3><% if ($pos) { %><%= $pos %>. <% } %><a href="<%= url_for '/user/'. $user->{pauseid} %>"><%= $user->{name} %></a></h3></div>
+<div class="name"><h3><% if ($user->{position}) { %><%= $user->{position} %>. <% } %><a href="<%= url_for '/user/'. $user->{pauseid} %>"><%= $user->{name} %></a></h3></div>
 <div class="item">
     <ul>
         <li>On MetaCPAN: <a href="<%= $user->{metacpan_url} %>"><%= $user->{metacpan_url} %></a></li>
