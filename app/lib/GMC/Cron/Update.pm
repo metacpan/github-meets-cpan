@@ -25,7 +25,7 @@ sub new {
         json   => JSON::Any->new,
         log    => Mojo::Log->new( path => "$args{home}/log/update.log" ),
         lwp    => LWP::UserAgent->new,
-        mcpan  => 'http://api.metacpan.org/author/_search?q=author.profile.name:github&size=100000',
+        mcpan  => 'http://api.metacpan.org/author/_search?q=author.profile.name:github&size=1000',
         pithub => Pithub->new( per_page => 100, auto_pagination => 1 ),
     } => $package;
 }
