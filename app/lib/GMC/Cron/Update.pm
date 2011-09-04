@@ -123,6 +123,11 @@ sub fetch_github_user {
     my ( $self, $user ) = @_;
 
     my $github_user = $user->{github_user};
+    unless ($github_user) {
+        $self->log->error( sprintf '%-9s Invalid Github user: %s', $user->{pauseid}, $github_user );
+        return;
+    }
+
     my $result = $self->pithub->users->get( user => $github_user );
 
     unless ( $result->success ) {
