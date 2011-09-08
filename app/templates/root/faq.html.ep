@@ -9,8 +9,7 @@
         <abbr title="Answer">A:</abbr>
         You need to set your <a href="https://github.com/">Github</a> account
         at <a href="https://metacpan.org/">MetaCPAN</a> as well as your
-        <a href="http://pause.perl.org/">PAUSE</a> account. The latter is
-        necessary so your author.json file can be uploaded.
+        <a href="http://pause.perl.org/">PAUSE</a> account.
     </p>
 </div>
 
