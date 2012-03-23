@@ -73,10 +73,15 @@ sub update_repos {
 
     my $rank = $user->{github_data}{followers};
 
-    my %languages = ();
+    my %languages;
     foreach my $repo (@$repos) {
         $repo->{_user_id} = $user->{_id};
-        $languages{ $repo->{language} }++ if $repo->{language};
+        next unless $repo->{language};
+        $languages{ $repo->{language} }++;
+
+        # Count only Perl projects
+        next unless $repo->{language} eq 'Perl';
+        $rank++;
         $rank += $repo->{watchers};
         $rank += $repo->{forks};
     }
