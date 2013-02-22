@@ -20,7 +20,7 @@ sub new {
     my $mongo = MongoDB::Connection->new( mongodb_config() );
 
     return bless {
-        db     => $mongo->db,
+        db     => $mongo->get_database('db'),
         home   => $args{home},
         json   => JSON::Any->new,
         log    => Mojo::Log->new( path => "$args{home}/log/update.log" ),
@@ -41,8 +41,8 @@ sub run {
     }
 
     my $now = sprintf '%s', DateTime->now;
-    $self->db->status->remove;
-    $self->db->status->insert( { last_update => $now } );
+    $self->db->get_collection('status')->remove;
+    $self->db->get_collection('status')->insert( { last_update => $now } );
 
     $self->update_position;
 
@@ -92,11 +92,11 @@ sub update_repos {
         $update->{languages} = \%languages;
     }
 
-    $self->db->users->update( $cond, { '$set' => $update } );
+    $self->db->get_collection('users')->update( $cond, { '$set' => $update } );
 
     if (@$repos) {
-        $self->db->repos->remove( { _user_id => $user->{_id} } );
-        $self->db->repos->batch_insert($repos);
+        $self->db->get_collection('repos')->remove( { _user_id => $user->{_id} } );
+        $self->db->get_collection('repos')->batch_insert($repos);
     }
 }
 
@@ -108,15 +108,15 @@ sub create_or_update_user {
 
     my $cond = { pauseid => $user->{pauseid} };
 
-    my $db_user = $self->db->users->find($cond);
+    my $db_user = $self->db->get_collection('users')->find($cond);
     if ( $db_user->count ) {
-        $self->db->users->update( $cond => { '$set' => $user } );
+        $self->db->get_collection('users')->update( $cond => { '$set' => $user } );
         $user->{_id} = $db_user->next->{_id};
         $self->log->info( sprintf '%-9s Updating user', $user->{pauseid} );
     }
     else {
         $user->{created} = time;
-        my $id = $self->db->users->insert($user);
+        my $id = $self->db->get_collection('users')->insert($user);
         $user->{_id} = $id;
         $self->log->info( sprintf '%-9s Adding new user', $user->{pauseid} );
     }
