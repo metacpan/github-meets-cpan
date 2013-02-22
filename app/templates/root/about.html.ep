@@ -16,5 +16,14 @@
 + (sum of forks of all of your repositories)
 = rank</pre>
     <p>Currently there are <%= $count %> users listed.</p>
+    <p>To appear on this list, you need to:</p>
+    <ul>
+    <li>Have an account on <a href="https://metacpan.org">MetaCPAN</a>.
+    <li>Have an account on <a href="https://github.com">Github</a>.
+    <li>Edit your <a href="https://metacpan.org/account/profile">MetaCPAN profile</a>.
+        At the bottom you'll find a <strong>Profiles</strong> section.
+        Select GitHub from the drop-down menu and put your github username in the text box that appears.
+        Click on the <em>check</em> link to the right to make sure you got that right.
+    </ul>
 </div>
 
