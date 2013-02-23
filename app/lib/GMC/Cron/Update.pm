@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use DateTime;
 use File::Copy qw(move);
-use GMC::Util qw(mongodb_config);
+use GMC::Util qw(github_config mongodb_config);
 use JSON::Any;
 use LWP::UserAgent;
 use Mojo::Base -base;
@@ -17,7 +17,8 @@ __PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
 sub new {
     my ( $package, %args ) = @_;
 
-    my $mongo = MongoDB::Connection->new( mongodb_config() );
+    my $mongo  = MongoDB::Connection->new( mongodb_config() );
+    my $github = github_config();
 
     return bless {
         db     => $mongo->get_database('db'),
@@ -26,7 +27,19 @@ sub new {
         log    => Mojo::Log->new( path => "$args{home}/log/update.log" ),
         lwp    => LWP::UserAgent->new,
         mcpan  => 'http://api.metacpan.org/author/_search?q=author.profile.name:github&size=1000',
-        pithub => Pithub->new( per_page => 100, auto_pagination => 1 ),
+        pithub => Pithub->new(
+            auto_pagination => 1,
+            per_page        => 100,
+            prepare_request => sub {
+                my ($request) = @_;
+                my %query = (
+                    $request->uri->query_form,
+                    client_id     => $github->{CLIENT_ID},
+                    client_secret => $github->{CLIENT_SECRET}
+                );
+                $request->uri->query_form(%query);
+            },
+        ),
     } => $package;
 }
 

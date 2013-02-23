@@ -4,7 +4,7 @@ use Mojo::Base 'Exporter';
 use JSON::XS;
 use File::Slurp qw(read_file);
 
-our @EXPORT_OK = qw/environment mongodb_config/;
+our @EXPORT_OK = qw/environment github_config mongodb_config/;
 my $ENVIRONMENT;
 
 sub mongodb_config {
@@ -21,6 +21,17 @@ sub mongodb_config {
     $config{username} = $user if defined $user;
 
     return %config;
+}
+
+sub github_config {
+    my ($self) = @_;
+
+    my $env = environment();
+
+    return {
+        CLIENT_ID     => $env->{GITHUB_CLIENT_ID},
+        CLIENT_SECRET => $env->{GITHUB_CLIENT_SECRET},
+    };
 }
 
 sub environment {
