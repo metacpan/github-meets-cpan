@@ -181,7 +181,7 @@ sub fetch_github_repos {
 sub fetch_coderwall_user {
     my ( $self, $user ) = @_;
 
-    my $url = sprintf 'http://coderwall.com/%s.json', $user->{github_user};
+    my $url = sprintf 'http://coderwall.com/%s.json', $user->{coderwall_user};
     my $response = $self->lwp->get($url);
 
     unless ( $response->is_success ) {
@@ -214,21 +214,21 @@ sub fetch_metacpan_users {
     foreach my $row ( @{ $data->{hits}{hits} } ) {
         $row = $row->{_source};
 
+        my $coderwall_user;
         my $github_user;
         foreach my $profile ( @{ $row->{profile} || [] } ) {
-            if ( $profile->{name} eq 'github' ) {
-                $github_user = $profile->{id};
-                last;
-            }
+            $github_user    = $profile->{id} if $profile->{name} eq 'github';
+            $coderwall_user = $profile->{id} if $profile->{name} eq 'coderwall';
         }
 
         push @result,
           {
-            github_user  => $github_user,
-            gravatar_url => $row->{gravatar_url},
-            name         => $row->{name},
-            pauseid      => $row->{pauseid},
-            metacpan_url => 'https://metacpan.org/author/' . $row->{pauseid},
+            github_user    => $github_user,
+            coderwall_user => $coderwall_user || $github_user,
+            gravatar_url   => $row->{gravatar_url},
+            name           => $row->{name},
+            pauseid        => $row->{pauseid},
+            metacpan_url   => 'https://metacpan.org/author/' . $row->{pauseid},
           };
     }
 
