@@ -21,4 +21,4 @@ EOF
 $ENV{MOJO_APP} ||= 'GMC';
 
 # Start commands
-Mojolicious::Commands->start;
+Mojolicious::Commands->start_app('GMC');
