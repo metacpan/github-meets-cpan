@@ -19,7 +19,7 @@ sub startup {
 
     # setup routes
     my $r = $self->routes;
-    $r->namespaces('GMC::Controller');
+    $r->namespaces(['GMC::Controller']);
     $r->route('/')->to('root#list');
     $r->route('/about')->to('root#about');
     $r->route('/faq')->to('root#faq');
