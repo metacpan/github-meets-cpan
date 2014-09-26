@@ -15,7 +15,9 @@ sub mongodb_config {
         port => environment()->{DOTCLOUD_DATA_MONGODB_PORT},
     );
 
-    my ( $user, $pass ) = @{ environment() }{qw(DOTCLOUD_DATA_MONGODB_LOGIN DOTCLOUD_DATA_MONGODB_PASSWORD)};
+    my ( $user, $pass )
+        = @{ environment() }
+        {qw(DOTCLOUD_DATA_MONGODB_LOGIN DOTCLOUD_DATA_MONGODB_PASSWORD)};
 
     $config{password} = $pass if defined $pass;
     $config{username} = $user if defined $user;
@@ -28,9 +30,7 @@ sub github_config {
 
     my $env = environment();
 
-    return {
-        TOKEN => $env->{GITHUB_TOKEN} || $ENV{GITHUB_TOKEN},
-    };
+    return { TOKEN => $env->{GITHUB_TOKEN} || $ENV{GITHUB_TOKEN}, };
 }
 
 sub environment {
