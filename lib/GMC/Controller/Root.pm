@@ -36,7 +36,8 @@ sub recent {
 
 sub view {
     my ($self) = @_;
-    my $pauseid = $self->match->captures->{user};
+
+    my $pauseid = $self->match->stack->[0]->{user};
     my $user = $self->db('db')->get_collection('users')->find( { pauseid => $pauseid } )->next;
     unless ($user) {
         $self->render_not_found;
