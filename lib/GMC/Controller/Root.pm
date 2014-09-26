@@ -48,6 +48,7 @@ sub view {
         db_status => $self->db('db')->get_collection('status')->find->next,
         repos     => $repos,
         user      => $user,
+        position  => 0,
     );
 }
 

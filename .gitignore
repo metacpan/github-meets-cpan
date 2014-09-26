@@ -1,3 +1,2 @@
-/app/Makefile
-/app/log/*.log
+/log/*.log
 local
