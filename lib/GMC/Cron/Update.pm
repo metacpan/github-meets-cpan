@@ -11,6 +11,7 @@ use Mojo::Base -base;
 use Mojo::Log;
 use MongoDB;
 use Pithub;
+use WWW::Mechanize;
 
 __PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
 
@@ -19,6 +20,7 @@ sub new {
 
     my $mongo  = MongoDB::Connection->new( mongodb_config() );
     my $github = github_config();
+    my $gh_ua = WWW::Mechanize->new( autocheck => 0, headers => { 'Accept-Encoding' => 'identity' } );
 
     return bless {
         db     => $mongo->get_database('db'),
@@ -30,15 +32,8 @@ sub new {
         pithub => Pithub->new(
             auto_pagination => 1,
             per_page        => 100,
-            prepare_request => sub {
-                my ($request) = @_;
-                my %query = (
-                    $request->uri->query_form,
-                    client_id     => $github->{CLIENT_ID},
-                    client_secret => $github->{CLIENT_SECRET}
-                );
-                $request->uri->query_form(%query);
-            },
+            token           => $github->{TOKEN},
+            ua              => $gh_ua,
         ),
     } => $package;
 }

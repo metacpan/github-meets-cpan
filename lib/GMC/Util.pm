@@ -29,8 +29,7 @@ sub github_config {
     my $env = environment();
 
     return {
-        CLIENT_ID     => $env->{GITHUB_CLIENT_ID},
-        CLIENT_SECRET => $env->{GITHUB_CLIENT_SECRET},
+        TOKEN => $env->{GITHUB_TOKEN} || $ENV{GITHUB_TOKEN},
     };
 }
 
