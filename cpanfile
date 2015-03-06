@@ -1,3 +1,5 @@
+requires 'Plack::Handler::Starman';
+requires 'File::Slurp';
 requires 'Data::Printer';
 requires 'JSON::Any';
 requires 'JSON::XS';
