@@ -6,8 +6,7 @@ use warnings;
 use File::Basename 'dirname';
 use File::Spec;
 
-use lib join '/', File::Spec->splitdir( dirname(__FILE__) ), 'lib';
-use lib join '/', File::Spec->splitdir( dirname(__FILE__) ), '..', 'lib';
+use lib 'lib';
 
 # Check if Mojo is installed
 eval 'use Mojolicious::Commands';
@@ -21,4 +20,4 @@ EOF
 $ENV{MOJO_APP} ||= 'GMC';
 
 # Start commands
-Mojolicious::Commands->start;
+Mojolicious::Commands->start_app('GMC');

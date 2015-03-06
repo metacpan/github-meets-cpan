@@ -1,0 +1,10 @@
+requires 'Data::Printer';
+requires 'JSON::Any';
+requires 'JSON::XS';
+requires 'LWP::ConsoleLogger';
+requires 'Mojolicious';
+requires 'Mojolicious::Plugin::Mongodb';
+requires 'Pithub';
+requires 'Plack';
+requires 'Plack::Middleware::DebugLogging';
+requires 'WWW::Mechanize';

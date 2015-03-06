@@ -2,7 +2,7 @@
 % title 'Recent';
 % if ($users->count) {
     % while (my $user = $users->next) {
-        <%= include 'parts/user', user => $user %>
+        <%= include 'parts/user', user => $user, position => 0 %>
     % }
 % }
 % else {

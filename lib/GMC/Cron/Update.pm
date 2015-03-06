@@ -11,6 +11,7 @@ use Mojo::Base -base;
 use Mojo::Log;
 use MongoDB;
 use Pithub;
+use WWW::Mechanize;
 
 __PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
 
@@ -19,26 +20,24 @@ sub new {
 
     my $mongo  = MongoDB::Connection->new( mongodb_config() );
     my $github = github_config();
+    my $gh_ua  = WWW::Mechanize->new(
+        autocheck => 0,
+        headers   => { 'Accept-Encoding' => 'identity' }
+    );
 
     return bless {
-        db     => $mongo->get_database('db'),
-        home   => $args{home},
-        json   => JSON::Any->new,
-        log    => Mojo::Log->new( path => "$args{home}/log/update.log" ),
-        lwp    => LWP::UserAgent->new,
-        mcpan  => 'http://api.metacpan.org/author/_search?q=author.profile.name:github&size=1000',
+        db   => $mongo->get_database('db'),
+        home => $args{home},
+        json => JSON::Any->new,
+        log  => Mojo::Log->new( path => "$args{home}/log/update.log" ),
+        lwp  => LWP::UserAgent->new,
+        mcpan =>
+            'http://api.metacpan.org/author/_search?q=author.profile.name:github&size=1000',
         pithub => Pithub->new(
             auto_pagination => 1,
             per_page        => 100,
-            prepare_request => sub {
-                my ($request) = @_;
-                my %query = (
-                    $request->uri->query_form,
-                    client_id     => $github->{CLIENT_ID},
-                    client_secret => $github->{CLIENT_SECRET}
-                );
-                $request->uri->query_form(%query);
-            },
+            token           => $github->{TOKEN},
+            ua              => $gh_ua,
         ),
     } => $package;
 }
@@ -105,10 +104,12 @@ sub update_repos {
         $update->{languages} = \%languages;
     }
 
-    $self->db->get_collection('users')->update( $cond, { '$set' => $update } );
+    $self->db->get_collection('users')
+        ->update( $cond, { '$set' => $update } );
 
     if (@$repos) {
-        $self->db->get_collection('repos')->remove( { _user_id => $user->{_id} } );
+        $self->db->get_collection('repos')
+            ->remove( { _user_id => $user->{_id} } );
         $self->db->get_collection('repos')->batch_insert($repos);
     }
 }
@@ -123,7 +124,8 @@ sub create_or_update_user {
 
     my $db_user = $self->db->get_collection('users')->find($cond);
     if ( $db_user->count ) {
-        $self->db->get_collection('users')->update( $cond => { '$set' => $user } );
+        $self->db->get_collection('users')
+            ->update( $cond => { '$set' => $user } );
         $user->{_id} = $db_user->next->{_id};
         $self->log->info( sprintf '%-9s Updating user', $user->{pauseid} );
     }
@@ -142,19 +144,24 @@ sub fetch_github_user {
 
     my $github_user = $user->{github_user};
     unless ($github_user) {
-        $self->log->error( sprintf '%-9s Invalid Github user: %s', $user->{pauseid}, $github_user );
+        $self->log->error( sprintf '%-9s Invalid Github user: %s',
+            $user->{pauseid}, $github_user );
         return;
     }
 
     my $result = $self->pithub->users->get( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->error( sprintf '%-9s Could not fetch user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
+        $self->log->error(
+            sprintf '%-9s Could not fetch user %s from Github (RL:%d)',
+            $user->{pauseid}, $github_user, $result->ratelimit_remaining );
         return;
     }
 
     $user->{github_data} = $result->content;
-    $self->log->info( sprintf '%-9s Successfully fetched user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
+    $self->log->info(
+        sprintf '%-9s Successfully fetched user %s from Github (RL:%d)',
+        $user->{pauseid}, $github_user, $result->ratelimit_remaining );
     return 1;
 }
 
@@ -165,7 +172,10 @@ sub fetch_github_repos {
     my $result = $self->pithub->repos->list( user => $github_user );
 
     unless ( $result->success ) {
-        $self->log->error( sprintf '%-9s Could not fetch repos of user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
+        $self->log->error(
+            sprintf
+                '%-9s Could not fetch repos of user %s from Github (RL:%d)',
+            $user->{pauseid}, $github_user, $result->ratelimit_remaining );
         return;
     }
 
@@ -173,7 +183,10 @@ sub fetch_github_repos {
     while ( my $row = $result->next ) {
         push @repos, $row;
     }
-    $self->log->info( sprintf '%-9s Successfully fetched repos of user %s from Github (RL:%d)', $user->{pauseid}, $github_user, $result->ratelimit_remaining );
+    $self->log->info(
+        sprintf
+            '%-9s Successfully fetched repos of user %s from Github (RL:%d)',
+        $user->{pauseid}, $github_user, $result->ratelimit_remaining );
 
     return \@repos;
 }
@@ -185,17 +198,21 @@ sub fetch_coderwall_user {
     my $response = $self->lwp->get($url);
 
     unless ( $response->is_success ) {
-        $self->log->warn( sprintf '%-9s Fetching data from %s failed: %s', $user->{pauseid}, $url, $response->status_line );
+        $self->log->warn( sprintf '%-9s Fetching data from %s failed: %s',
+            $user->{pauseid}, $url, $response->status_line );
         return;
     }
 
     my $data = eval { $self->json->decode( $response->content ) };
     if ($@) {
-        $self->log->warn( sprintf '%-9s Error decoding data from %s: %s', $user->{pauseid}, $url, $@ );
+        $self->log->warn( sprintf '%-9s Error decoding data from %s: %s',
+            $user->{pauseid}, $url, $@ );
         return;
     }
 
-    $self->log->info( sprintf '%-9s Successfully fetched coderwall data from %s', $user->{pauseid}, $url );
+    $self->log->info(
+        sprintf '%-9s Successfully fetched coderwall data from %s',
+        $user->{pauseid}, $url );
 
     $user->{coderwall_data} = $data;
 }
@@ -217,19 +234,20 @@ sub fetch_metacpan_users {
         my $coderwall_user;
         my $github_user;
         foreach my $profile ( @{ $row->{profile} || [] } ) {
-            $github_user    = $profile->{id} if $profile->{name} eq 'github';
-            $coderwall_user = $profile->{id} if $profile->{name} eq 'coderwall';
+            $github_user = $profile->{id} if $profile->{name} eq 'github';
+            $coderwall_user = $profile->{id}
+                if $profile->{name} eq 'coderwall';
         }
 
         push @result,
-          {
+            {
             github_user    => $github_user,
             coderwall_user => $coderwall_user || $github_user,
             gravatar_url   => $row->{gravatar_url},
             name           => $row->{name},
             pauseid        => $row->{pauseid},
-            metacpan_url   => 'https://metacpan.org/author/' . $row->{pauseid},
-          };
+            metacpan_url => 'https://metacpan.org/author/' . $row->{pauseid},
+            };
     }
 
     $self->log->info('DONE');

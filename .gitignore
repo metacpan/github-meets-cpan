@@ -1,2 +1,3 @@
-/app/log/*.log
-/app/Makefile
+local
+/log/*.log
+.tidyall.d/

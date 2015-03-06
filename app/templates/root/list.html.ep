@@ -1,5 +1,0 @@
-% layout 'default';
-% title 'Ranking';
-% while (my $user = $users->next) {
-    <%= include 'parts/user', user => $user %>
-% }
