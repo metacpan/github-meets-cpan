@@ -1,0 +1,5 @@
+{
+   "DOTCLOUD_DATA_MONGODB_HOST" : "localhost",
+   "DOTCLOUD_DATA_MONGODB_PORT" : 27017,
+   "GITHUB_TOKEN" : "foobar"
+}
