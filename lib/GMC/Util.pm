@@ -38,7 +38,7 @@ sub environment {
 
     return $ENVIRONMENT if $ENVIRONMENT;
 
-    my $file = "$ENV{HOME}/environment.json";
+    my $file = "$ENV{HOME}/github-meets-cpan/environment.json";
 
     if ( -f $file ) {
         my $env = read_file($file);
