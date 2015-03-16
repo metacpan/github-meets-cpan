@@ -1,3 +1,4 @@
 local
 /log/*.log
 .tidyall.d/
+environment.json
