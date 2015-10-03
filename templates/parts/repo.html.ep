@@ -2,7 +2,7 @@
 <div class="item">
     <ul>
         <% if ($repo->{homepage} && $repo->{homepage} =~ qr{^http}) { %><li><a href="<%= $repo->{homepage} %>"><%= $repo->{homepage} %></a></li><% } %>
-        <% if ($repo->{description}) { %><li>Description: <%= $repo->{description} %></li><% } %>
+        <% if ($repo->{description}) { %><li>Description: <%= Encode::decode('UTF-8', $repo->{description}) %></li><% } %>
         <li><a href="https://github.com/<%= $user->{github_user} %>/<%= $repo->{name} %>/watchers">Watchers</a>: <%= $repo->{watchers} %></li>
         <li><a href="https://github.com/<%= $user->{github_user} %>/<%= $repo->{name} %>/network">Forks</a>: <%= $repo->{forks} %></li>
         <% if ($repo->{open_issues}) { %><li><a href="https://github.com/<%= $user->{github_user} %>/<%= $repo->{name} %>/issues">Open Issues</a>: <%= $repo->{open_issues} %></li><% } %>
