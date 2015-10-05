@@ -1,10 +1,10 @@
 requires 'Plack::Handler::Starman';
-requires 'File::Slurp';
 requires 'Data::Printer';
 requires 'JSON::MaybeXS';
 requires 'LWP::ConsoleLogger';
 requires 'Mojolicious';
 requires 'Mojolicious::Plugin::Mongodb';
+requires 'Path::Tiny';
 requires 'Pithub';
 requires 'Plack';
 requires 'Plack::Middleware::DebugLogging';

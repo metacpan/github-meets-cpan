@@ -1510,17 +1510,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.11
       File::Spec 0
       IO::Dir 0
-  File-Slurp-9999.19
-    pathname: U/UR/URI/File-Slurp-9999.19.tar.gz
-    provides:
-      File::Slurp 9999.19
-      FileSlurp_12 9999.13
-    requirements:
-      Carp 0
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      Fcntl 0
-      POSIX 0
   File-Which-1.09
     pathname: A/AD/ADAMK/File-Which-1.09.tar.gz
     provides:
