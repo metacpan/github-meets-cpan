@@ -224,6 +224,14 @@ DISTRIBUTIONS
       base 0
       strict 0
       warnings 0
+  Cpanel-JSON-XS-3.0115
+    pathname: R/RU/RURBAN/Cpanel-JSON-XS-3.0115.tar.gz
+    provides:
+      Cpanel::JSON::XS 3.0115
+    requirements:
+      ExtUtils::MakeMaker 0
+      Pod::Text 2.08
+      Pod::Usage 1.33
   Crypt-URandom-0.34
     pathname: D/DD/DDICK/Crypt-URandom-0.34.tar.gz
     provides:
@@ -1817,23 +1825,13 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
-  JSON-Any-1.38
-    pathname: E/ET/ETHER/JSON-Any-1.38.tar.gz
-    provides:
-      JSON::Any 1.38
-    requirements:
-      Carp 0
-      ExtUtils::MakeMaker 0
-      constant 0
-      namespace::clean 0
-      strict 0
-      warnings 0
   JSON-MaybeXS-1.003003
     pathname: E/ET/ETHER/JSON-MaybeXS-1.003003.tar.gz
     provides:
       JSON::MaybeXS 1.003003
     requirements:
       Carp 0
+      Cpanel::JSON::XS 2.3310
       ExtUtils::CBuilder 0.27
       ExtUtils::MakeMaker 0
       File::Spec 0
@@ -1841,14 +1839,6 @@ DISTRIBUTIONS
       JSON::PP 2.27202
       Scalar::Util 0
       perl 5.006
-  JSON-XS-3.01
-    pathname: M/ML/MLEHMANN/JSON-XS-3.01.tar.gz
-    provides:
-      JSON::XS 3.01
-    requirements:
-      ExtUtils::MakeMaker 0
-      Types::Serialiser 0
-      common::sense 0
   LWP-ConsoleLogger-0.000013
     pathname: O/OA/OALDERS/LWP-ConsoleLogger-0.000013.tar.gz
     provides:
@@ -3690,16 +3680,6 @@ DISTRIBUTIONS
       Exporter::Tiny 0.026
       ExtUtils::MakeMaker 6.17
       perl 5.006001
-  Types-Serialiser-1.0
-    pathname: M/ML/MLEHMANN/Types-Serialiser-1.0.tar.gz
-    provides:
-      JSON::PP::Boolean 1.0
-      Types::Serialiser 1.0
-      Types::Serialiser::BooleanBase 1.0
-      Types::Serialiser::Error 1.0
-    requirements:
-      ExtUtils::MakeMaker 0
-      common::sense 0
   URI-1.67
     pathname: E/ET/ETHER/URI-1.67.tar.gz
     provides:
@@ -3919,12 +3899,6 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
-  common-sense-3.73
-    pathname: M/ML/MLEHMANN/common-sense-3.73.tar.gz
-    provides:
-      common::sense 3.73
-    requirements:
-      ExtUtils::MakeMaker 0
   libwww-perl-6.13
     pathname: E/ET/ETHER/libwww-perl-6.13.tar.gz
     provides:

@@ -1,7 +1,7 @@
 package GMC::Util;
 
 use Mojo::Base 'Exporter';
-use JSON::XS;
+use JSON::MaybeXS;
 use File::Slurp qw(read_file);
 
 our @EXPORT_OK = qw/environment github_config mongodb_config/;
@@ -42,7 +42,7 @@ sub environment {
 
     if ( -f $file ) {
         my $env = read_file($file);
-        $ENVIRONMENT = JSON::XS->new->decode($env);
+        $ENVIRONMENT = decode_json($env);
         return $ENVIRONMENT;
     }
 

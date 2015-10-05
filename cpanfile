@@ -1,8 +1,7 @@
 requires 'Plack::Handler::Starman';
 requires 'File::Slurp';
 requires 'Data::Printer';
-requires 'JSON::Any';
-requires 'JSON::XS';
+requires 'JSON::MaybeXS';
 requires 'LWP::ConsoleLogger';
 requires 'Mojolicious';
 requires 'Mojolicious::Plugin::Mongodb';
