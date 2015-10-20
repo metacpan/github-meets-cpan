@@ -2993,53 +2993,54 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
-  Pithub-0.01028
-    pathname: M/MS/MSCHWERN/Pithub-0.01028.tar.gz
+  Pithub-0.01030
+    pathname: O/OA/OALDERS/Pithub-0.01030.tar.gz
     provides:
-      Pithub 0.01028
-      Pithub::Base 0.01028
-      Pithub::Events 0.01028
-      Pithub::Gists 0.01028
-      Pithub::Gists::Comments 0.01028
-      Pithub::GitData 0.01028
-      Pithub::GitData::Blobs 0.01028
-      Pithub::GitData::Commits 0.01028
-      Pithub::GitData::References 0.01028
-      Pithub::GitData::Tags 0.01028
-      Pithub::GitData::Trees 0.01028
-      Pithub::Issues 0.01028
-      Pithub::Issues::Assignees 0.01028
-      Pithub::Issues::Comments 0.01028
-      Pithub::Issues::Events 0.01028
-      Pithub::Issues::Labels 0.01028
-      Pithub::Issues::Milestones 0.01028
-      Pithub::Orgs 0.01028
-      Pithub::Orgs::Members 0.01028
-      Pithub::Orgs::Teams 0.01028
-      Pithub::PullRequests 0.01028
-      Pithub::PullRequests::Comments 0.01028
-      Pithub::Repos 0.01028
-      Pithub::Repos::Collaborators 0.01028
-      Pithub::Repos::Commits 0.01028
-      Pithub::Repos::Contents 0.01028
-      Pithub::Repos::Downloads 0.01028
-      Pithub::Repos::Forks 0.01028
-      Pithub::Repos::Hooks 0.01028
-      Pithub::Repos::Keys 0.01028
-      Pithub::Repos::Releases 0.01028
-      Pithub::Repos::Releases::Assets 0.01028
-      Pithub::Repos::Starring 0.01028
-      Pithub::Repos::Stats 0.01028
-      Pithub::Repos::Statuses 0.01028
-      Pithub::Repos::Watching 0.01028
-      Pithub::Result 0.01028
-      Pithub::Result::SharedCache 0.01028
-      Pithub::Search 0.01028
+      Pithub 0.01030
+      Pithub::Base 0.01030
+      Pithub::Events 0.01030
+      Pithub::Gists 0.01030
+      Pithub::Gists::Comments 0.01030
+      Pithub::GitData 0.01030
+      Pithub::GitData::Blobs 0.01030
+      Pithub::GitData::Commits 0.01030
+      Pithub::GitData::References 0.01030
+      Pithub::GitData::Tags 0.01030
+      Pithub::GitData::Trees 0.01030
+      Pithub::Issues 0.01030
+      Pithub::Issues::Assignees 0.01030
+      Pithub::Issues::Comments 0.01030
+      Pithub::Issues::Events 0.01030
+      Pithub::Issues::Labels 0.01030
+      Pithub::Issues::Milestones 0.01030
+      Pithub::Orgs 0.01030
+      Pithub::Orgs::Members 0.01030
+      Pithub::Orgs::Teams 0.01030
+      Pithub::PullRequests 0.01030
+      Pithub::PullRequests::Comments 0.01030
+      Pithub::Repos 0.01030
+      Pithub::Repos::Collaborators 0.01030
+      Pithub::Repos::Commits 0.01030
+      Pithub::Repos::Contents 0.01030
+      Pithub::Repos::Downloads 0.01030
+      Pithub::Repos::Forks 0.01030
+      Pithub::Repos::Hooks 0.01030
+      Pithub::Repos::Keys 0.01030
+      Pithub::Repos::Releases 0.01030
+      Pithub::Repos::Releases::Assets 0.01030
+      Pithub::Repos::Starring 0.01030
+      Pithub::Repos::Stats 0.01030
+      Pithub::Repos::Statuses 0.01030
+      Pithub::Repos::Watching 0.01030
+      Pithub::Result 0.01030
+      Pithub::Result::SharedCache 0.01030
+      Pithub::Search 0.01030
+      Pithub::SearchV3 0.01030
       Pithub::Test undef
-      Pithub::Users 0.01028
-      Pithub::Users::Emails 0.01028
-      Pithub::Users::Followers 0.01028
-      Pithub::Users::Keys 0.01028
+      Pithub::Users 0.01030
+      Pithub::Users::Emails 0.01030
+      Pithub::Users::Followers 0.01030
+      Pithub::Users::Keys 0.01030
     requirements:
       Array::Iterator 0
       Cache::LRU 0.04

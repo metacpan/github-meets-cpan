@@ -10,7 +10,7 @@ use LWP::UserAgent;
 use Mojo::Base -base;
 use Mojo::Log;
 use MongoDB;
-use Pithub;
+use Pithub 0.01030; # encoding fix
 use WWW::Mechanize;
 
 __PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );

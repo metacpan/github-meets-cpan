@@ -5,7 +5,7 @@ requires 'LWP::ConsoleLogger';
 requires 'Mojolicious';
 requires 'Mojolicious::Plugin::Mongodb';
 requires 'Path::Tiny';
-requires 'Pithub';
+requires 'Pithub', '0.01030';
 requires 'Plack';
 requires 'Plack::Middleware::DebugLogging';
 requires 'WWW::Mechanize';
