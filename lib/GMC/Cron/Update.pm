@@ -5,12 +5,12 @@ use warnings;
 use DateTime;
 use File::Copy qw(move);
 use GMC::Util qw(github_config mongodb_config);
-use JSON::Any;
+use JSON::MaybeXS;
 use LWP::UserAgent;
 use Mojo::Base -base;
 use Mojo::Log;
 use MongoDB;
-use Pithub;
+use Pithub 0.01030; # encoding fix
 use WWW::Mechanize;
 
 __PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
@@ -28,7 +28,7 @@ sub new {
     return bless {
         db   => $mongo->get_database('db'),
         home => $args{home},
-        json => JSON::Any->new,
+        json => JSON->new->utf8,
         log  => Mojo::Log->new( path => "$args{home}/log/update.log" ),
         lwp  => LWP::UserAgent->new,
         mcpan =>

@@ -1,8 +1,8 @@
 package GMC::Util;
 
 use Mojo::Base 'Exporter';
-use JSON::XS;
-use File::Slurp qw(read_file);
+use JSON::MaybeXS;
+use Path::Tiny;
 
 our @EXPORT_OK = qw/environment github_config mongodb_config/;
 my $ENVIRONMENT;
@@ -41,8 +41,8 @@ sub environment {
     my $file = "$ENV{HOME}/github-meets-cpan/environment.json";
 
     if ( -f $file ) {
-        my $env = read_file($file);
-        $ENVIRONMENT = JSON::XS->new->decode($env);
+        my $env = path($file)->slurp_raw;
+        $ENVIRONMENT = decode_json($env);
         return $ENVIRONMENT;
     }
 

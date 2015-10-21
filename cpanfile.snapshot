@@ -224,6 +224,14 @@ DISTRIBUTIONS
       base 0
       strict 0
       warnings 0
+  Cpanel-JSON-XS-3.0115
+    pathname: R/RU/RURBAN/Cpanel-JSON-XS-3.0115.tar.gz
+    provides:
+      Cpanel::JSON::XS 3.0115
+    requirements:
+      ExtUtils::MakeMaker 0
+      Pod::Text 2.08
+      Pod::Usage 1.33
   Crypt-URandom-0.34
     pathname: D/DD/DDICK/Crypt-URandom-0.34.tar.gz
     provides:
@@ -1502,17 +1510,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.11
       File::Spec 0
       IO::Dir 0
-  File-Slurp-9999.19
-    pathname: U/UR/URI/File-Slurp-9999.19.tar.gz
-    provides:
-      File::Slurp 9999.19
-      FileSlurp_12 9999.13
-    requirements:
-      Carp 0
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      Fcntl 0
-      POSIX 0
   File-Which-1.09
     pathname: A/AD/ADAMK/File-Which-1.09.tar.gz
     provides:
@@ -1817,23 +1814,13 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
-  JSON-Any-1.38
-    pathname: E/ET/ETHER/JSON-Any-1.38.tar.gz
-    provides:
-      JSON::Any 1.38
-    requirements:
-      Carp 0
-      ExtUtils::MakeMaker 0
-      constant 0
-      namespace::clean 0
-      strict 0
-      warnings 0
   JSON-MaybeXS-1.003003
     pathname: E/ET/ETHER/JSON-MaybeXS-1.003003.tar.gz
     provides:
       JSON::MaybeXS 1.003003
     requirements:
       Carp 0
+      Cpanel::JSON::XS 2.3310
       ExtUtils::CBuilder 0.27
       ExtUtils::MakeMaker 0
       File::Spec 0
@@ -1841,14 +1828,6 @@ DISTRIBUTIONS
       JSON::PP 2.27202
       Scalar::Util 0
       perl 5.006
-  JSON-XS-3.01
-    pathname: M/ML/MLEHMANN/JSON-XS-3.01.tar.gz
-    provides:
-      JSON::XS 3.01
-    requirements:
-      ExtUtils::MakeMaker 0
-      Types::Serialiser 0
-      common::sense 0
   LWP-ConsoleLogger-0.000013
     pathname: O/OA/OALDERS/LWP-ConsoleLogger-0.000013.tar.gz
     provides:
@@ -3014,53 +2993,54 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
-  Pithub-0.01028
-    pathname: M/MS/MSCHWERN/Pithub-0.01028.tar.gz
+  Pithub-0.01030
+    pathname: O/OA/OALDERS/Pithub-0.01030.tar.gz
     provides:
-      Pithub 0.01028
-      Pithub::Base 0.01028
-      Pithub::Events 0.01028
-      Pithub::Gists 0.01028
-      Pithub::Gists::Comments 0.01028
-      Pithub::GitData 0.01028
-      Pithub::GitData::Blobs 0.01028
-      Pithub::GitData::Commits 0.01028
-      Pithub::GitData::References 0.01028
-      Pithub::GitData::Tags 0.01028
-      Pithub::GitData::Trees 0.01028
-      Pithub::Issues 0.01028
-      Pithub::Issues::Assignees 0.01028
-      Pithub::Issues::Comments 0.01028
-      Pithub::Issues::Events 0.01028
-      Pithub::Issues::Labels 0.01028
-      Pithub::Issues::Milestones 0.01028
-      Pithub::Orgs 0.01028
-      Pithub::Orgs::Members 0.01028
-      Pithub::Orgs::Teams 0.01028
-      Pithub::PullRequests 0.01028
-      Pithub::PullRequests::Comments 0.01028
-      Pithub::Repos 0.01028
-      Pithub::Repos::Collaborators 0.01028
-      Pithub::Repos::Commits 0.01028
-      Pithub::Repos::Contents 0.01028
-      Pithub::Repos::Downloads 0.01028
-      Pithub::Repos::Forks 0.01028
-      Pithub::Repos::Hooks 0.01028
-      Pithub::Repos::Keys 0.01028
-      Pithub::Repos::Releases 0.01028
-      Pithub::Repos::Releases::Assets 0.01028
-      Pithub::Repos::Starring 0.01028
-      Pithub::Repos::Stats 0.01028
-      Pithub::Repos::Statuses 0.01028
-      Pithub::Repos::Watching 0.01028
-      Pithub::Result 0.01028
-      Pithub::Result::SharedCache 0.01028
-      Pithub::Search 0.01028
+      Pithub 0.01030
+      Pithub::Base 0.01030
+      Pithub::Events 0.01030
+      Pithub::Gists 0.01030
+      Pithub::Gists::Comments 0.01030
+      Pithub::GitData 0.01030
+      Pithub::GitData::Blobs 0.01030
+      Pithub::GitData::Commits 0.01030
+      Pithub::GitData::References 0.01030
+      Pithub::GitData::Tags 0.01030
+      Pithub::GitData::Trees 0.01030
+      Pithub::Issues 0.01030
+      Pithub::Issues::Assignees 0.01030
+      Pithub::Issues::Comments 0.01030
+      Pithub::Issues::Events 0.01030
+      Pithub::Issues::Labels 0.01030
+      Pithub::Issues::Milestones 0.01030
+      Pithub::Orgs 0.01030
+      Pithub::Orgs::Members 0.01030
+      Pithub::Orgs::Teams 0.01030
+      Pithub::PullRequests 0.01030
+      Pithub::PullRequests::Comments 0.01030
+      Pithub::Repos 0.01030
+      Pithub::Repos::Collaborators 0.01030
+      Pithub::Repos::Commits 0.01030
+      Pithub::Repos::Contents 0.01030
+      Pithub::Repos::Downloads 0.01030
+      Pithub::Repos::Forks 0.01030
+      Pithub::Repos::Hooks 0.01030
+      Pithub::Repos::Keys 0.01030
+      Pithub::Repos::Releases 0.01030
+      Pithub::Repos::Releases::Assets 0.01030
+      Pithub::Repos::Starring 0.01030
+      Pithub::Repos::Stats 0.01030
+      Pithub::Repos::Statuses 0.01030
+      Pithub::Repos::Watching 0.01030
+      Pithub::Result 0.01030
+      Pithub::Result::SharedCache 0.01030
+      Pithub::Search 0.01030
+      Pithub::SearchV3 0.01030
       Pithub::Test undef
-      Pithub::Users 0.01028
-      Pithub::Users::Emails 0.01028
-      Pithub::Users::Followers 0.01028
-      Pithub::Users::Keys 0.01028
+      Pithub::Users 0.01030
+      Pithub::Users::Emails 0.01030
+      Pithub::Users::Followers 0.01030
+      Pithub::Users::Keys 0.01030
     requirements:
       Array::Iterator 0
       Cache::LRU 0.04
@@ -3690,16 +3670,6 @@ DISTRIBUTIONS
       Exporter::Tiny 0.026
       ExtUtils::MakeMaker 6.17
       perl 5.006001
-  Types-Serialiser-1.0
-    pathname: M/ML/MLEHMANN/Types-Serialiser-1.0.tar.gz
-    provides:
-      JSON::PP::Boolean 1.0
-      Types::Serialiser 1.0
-      Types::Serialiser::BooleanBase 1.0
-      Types::Serialiser::Error 1.0
-    requirements:
-      ExtUtils::MakeMaker 0
-      common::sense 0
   URI-1.67
     pathname: E/ET/ETHER/URI-1.67.tar.gz
     provides:
@@ -3919,12 +3889,6 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
-  common-sense-3.73
-    pathname: M/ML/MLEHMANN/common-sense-3.73.tar.gz
-    provides:
-      common::sense 3.73
-    requirements:
-      ExtUtils::MakeMaker 0
   libwww-perl-6.13
     pathname: E/ET/ETHER/libwww-perl-6.13.tar.gz
     provides:
