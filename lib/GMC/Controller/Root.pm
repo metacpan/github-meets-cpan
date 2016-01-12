@@ -46,6 +46,13 @@ sub view {
     my ($self) = @_;
 
     my $pauseid = $self->match->stack->[0]->{user};
+
+    my $uc_pause = uc $pauseid;
+    if ( $uc_pause ne $pauseid ){
+        $self->redirect_to(user => $uc_pause);
+        return;
+    }
+
     my $user    = $self->db('db')->get_collection('users')
         ->find( { pauseid => $pauseid } )->next;
     unless ($user) {
