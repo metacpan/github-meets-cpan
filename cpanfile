@@ -2,7 +2,7 @@ requires 'Plack::Handler::Starman';
 requires 'Data::Printer';
 requires 'JSON::MaybeXS';
 requires 'LWP::ConsoleLogger';
-requires 'Mojolicious';
+requires 'Mojolicious', '6.01';
 requires 'Mojolicious::Plugin::Mongodb';
 requires 'Path::Tiny';
 requires 'Pithub', '0.01030';

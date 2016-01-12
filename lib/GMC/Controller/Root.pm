@@ -49,7 +49,7 @@ sub view {
     my $user    = $self->db('db')->get_collection('users')
         ->find( { pauseid => $pauseid } )->next;
     unless ($user) {
-        $self->render_not_found;
+        $self->helpers->reply->not_found;
         return;
     }
     my $repos = $self->db('db')->get_collection('repos')
