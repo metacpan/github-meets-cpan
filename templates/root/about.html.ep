@@ -2,18 +2,18 @@
 % title 'About';
 <div class="item">
 
-    "Github Meets CPAN" presents a list of users who have set their <a
-    href="https://github.com">Github</a> account at <a
+    "GitHub Meets CPAN" presents a list of users who have set their <a
+    href="https://github.com">GitHub</a> account at <a
     href="https://metacpan.org">MetaCPAN</a>. This app uses the <a
     href="https://github.com/CPAN-API/cpan-api/blob/master/docs/API-docs.md">MetaCPAN
-    API</a> as well as the <a href="http://developer.github.com/v3/">Github
+    API</a> as well as the <a href="http://developer.github.com/v3/">GitHub
     API</a> (<a href="https://metacpan.org/pod/Pithub">Pithub</a>) to gather
     all the information presented here. It is hosted by the MetaCPAN project
     and uses the <a href="http://mojolicious.org/">Mojolicious Web
     Framework</a>. <a href="http://www.fastly.com/">Fastly</a> provides the
     caching layer which makes it so fast.  You can <a
     href="https://github.com/CPAN-API/github-meets-cpan">fork this project on
-    Github</a>.  The guy who was so bored to write this is called <a href="<%=
+    GitHub</a>.  The guy who was so bored to write this is called <a href="<%=
     url_for '/user/PLU' %>">plu</a>. The rank is calculated by this
     formula:<br/>
 
@@ -25,7 +25,7 @@
     <p>To appear on this list, you need to:</p>
     <ul>
     <li>Have an account on <a href="https://metacpan.org">MetaCPAN</a>.
-    <li>Have an account on <a href="https://github.com">Github</a>.
+    <li>Have an account on <a href="https://github.com">GitHub</a>.
     <li>Edit your <a href="https://metacpan.org/account/profile">MetaCPAN profile</a>.
         At the bottom you'll find a <strong>Profiles</strong> section.
         Select GitHub from the drop-down menu and put your github username in the text box that appears.

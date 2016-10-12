@@ -7,7 +7,7 @@
     </p>
     <p>
         <abbr title="Answer">A:</abbr>
-        You need to set your <a href="https://github.com/">Github</a> account
+        You need to set your <a href="https://github.com/">GitHub</a> account
         at <a href="https://metacpan.org/">MetaCPAN</a> as well as your
         <a href="http://pause.perl.org/">PAUSE</a> account.
     </p>
@@ -16,12 +16,12 @@
 <div class="item">
     <p>
         <abbr title="Question">Q:</abbr>
-        I've set my Github and PAUSE account, but I'm still not in the list?
+        I've set my GitHub and PAUSE account, but I'm still not in the list?
     </p>
     <p>
         <abbr title="Answer">A:</abbr>
         This may have many reasons. First make sure that you have set your
-        <a href="https://github.com/">Github</a> account to your username
+        <a href="https://github.com/">GitHub</a> account to your username
         (e.g.: PLU) and <strong>not</strong> to the full URL to your profile.
         Another reason might be that the list has not been updated in a while,
         see also: "How often is the data being updated?"

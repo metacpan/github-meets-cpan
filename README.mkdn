@@ -1,17 +1,17 @@
-# Github Meets CPAN
+# GitHub Meets CPAN
 
 [github-meets-cpan](http://gh.metacpan.org/)
 
-This project connects Github Users to MetaCPAN Users. It uses the
+This project connects GitHub Users to MetaCPAN Users. It uses the
 APIs of both sites: First it fetches all users from [MetaCPAN][metacpan] who
-have set their Github account. After that it fetches all public
-information about these users from Github.
+have set their GitHub account. After that it fetches all public
+information about these users from GitHub.
 
 It uses [MongoDB][mongo] for storing the data.
 The software is written in Perl using the [Mojolicious][mojo] framework.
 The app was originally deployed to dotCloud, but is now hosted on metacpan servers.
 
-It's some sort of an index of CPAN authors and their Github
+It's some sort of an index of CPAN authors and their GitHub
 accounts.
 
 [mojo]: http://mojolicious.org/
