@@ -130,7 +130,7 @@ sub fetch_github_user {
 
     my $github_user = $user->{github_user};
     unless ($github_user) {
-        $self->log->error( sprintf '%-9s Invalid Github user: %s',
+        $self->log->error( sprintf '%-9s Invalid GitHub user: %s',
             $user->{pauseid}, $github_user );
         return;
     }
@@ -139,14 +139,14 @@ sub fetch_github_user {
 
     unless ( $result->success ) {
         $self->log->error(
-            sprintf '%-9s Could not fetch user %s from Github (RL:%d)',
+            sprintf '%-9s Could not fetch user %s from GitHub (RL:%d)',
             $user->{pauseid}, $github_user, $result->ratelimit_remaining );
         return;
     }
 
     $user->{github_data} = $result->content;
     $self->log->info(
-        sprintf '%-9s Successfully fetched user %s from Github (RL:%d)',
+        sprintf '%-9s Successfully fetched user %s from GitHub (RL:%d)',
         $user->{pauseid}, $github_user, $result->ratelimit_remaining );
     return 1;
 }
@@ -160,7 +160,7 @@ sub fetch_github_repos {
     unless ( $result->success ) {
         $self->log->error(
             sprintf
-                '%-9s Could not fetch repos of user %s from Github (RL:%d)',
+                '%-9s Could not fetch repos of user %s from GitHub (RL:%d)',
             $user->{pauseid}, $github_user, $result->ratelimit_remaining );
         return;
     }
@@ -171,7 +171,7 @@ sub fetch_github_repos {
     }
     $self->log->info(
         sprintf
-            '%-9s Successfully fetched repos of user %s from Github (RL:%d)',
+            '%-9s Successfully fetched repos of user %s from GitHub (RL:%d)',
         $user->{pauseid}, $github_user, $result->ratelimit_remaining );
 
     return \@repos;

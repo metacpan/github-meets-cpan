@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title>Github Meets CPAN<% if ($title) { %>: <%= title %><% } %></title>
+    <title>GitHub Meets CPAN<% if ($title) { %>: <%= title %><% } %></title>
     <link rel="stylesheet" href="<%= url_for '/static/screen.css?3' %>" type="text/css" />
 </head>
 <body>
@@ -17,7 +17,7 @@
         </ul>
     </div>
     <div class="logos">
-        <a href="https://github.com"><img src="<%= url_for '/static/github.png?1' %>" alt="Github" /></a>
+        <a href="https://github.com"><img src="<%= url_for '/static/github.png?1' %>" alt="GitHub" /></a>
         <span class="heart"><a href="<%= url_for '/' %>">&#9829;</a></span>
         <a href="https://metacpan.org"><img src="<%= url_for '/static/cpan.png?1' %>" alt="CPAN" /></a>
     </div>

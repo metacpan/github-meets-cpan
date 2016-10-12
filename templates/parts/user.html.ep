@@ -3,7 +3,7 @@
 <div class="item">
     <ul>
         <li>On MetaCPAN: <a href="<%= $user->{metacpan_url} %>"><%= $user->{metacpan_url} %></a></li>
-        <li>On Github: <a href="<%= $user->{github_data}{html_url} %>"><%= $user->{github_data}{html_url} %></a></li>
+        <li>On GitHub: <a href="<%= $user->{github_data}{html_url} %>"><%= $user->{github_data}{html_url} %></a></li>
         <% if ($user->{github_data}{blog}) { %><li>Blog: <a href="<%= $user->{github_data}{blog} %>"><%= $user->{github_data}{blog} %></a></li><% } %>
         <li>Rank: <%= $user->{rank} %></li>
         <li><a href="https://github.com/<%= $user->{github_user} %>/followers">Followers</a>: <%= $user->{github_data}{followers} %></li>
