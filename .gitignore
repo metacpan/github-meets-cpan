@@ -1,4 +1,6 @@
 local
 /log/*.log
+static/update.log.txt
+var/
 .tidyall.d/
 environment.json
