@@ -1,4 +1,5 @@
 requires 'Plack::Handler::Starman';
+requires 'Gazelle';
 requires 'Data::Printer';
 requires 'JSON::MaybeXS';
 requires 'LWP::ConsoleLogger';
