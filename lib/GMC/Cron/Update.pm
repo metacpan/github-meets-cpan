@@ -33,7 +33,7 @@ sub new {
         pithub => Pithub->new(
             auto_pagination => 1,
             per_page        => 100,
-            token           => $github->{TOKEN},
+            $github->{TOKEN} ? ( token => $github->{TOKEN} ) : (),
             ua              => $gh_ua,
         ),
     } => $package;
