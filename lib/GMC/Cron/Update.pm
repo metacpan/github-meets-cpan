@@ -11,7 +11,6 @@ use Mojo::Base -base;
 use Mojo::Log;
 use MongoDB;
 use Pithub 0.01030; # encoding fix
-use WWW::Mechanize;
 
 __PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
 
@@ -20,10 +19,8 @@ sub new {
 
     my $mongo  = MongoDB::Connection->new( mongodb_config() );
     my $github = github_config();
-    my $gh_ua  = WWW::Mechanize->new(
-        autocheck => 0,
-        headers   => { 'Accept-Encoding' => 'identity' }
-    );
+    my $gh_ua  = LWP::UserAgent->new;
+    $gh_ua->default_header( 'Accept-Encoding' => 'identity' );
 
     return bless {
         db   => $mongo->get_database('db'),
