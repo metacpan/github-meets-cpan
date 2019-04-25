@@ -47,7 +47,7 @@ sub environment {
     }
 
     $ENVIRONMENT = {
-        DOTCLOUD_DATA_MONGODB_HOST => 'localhost',
+        DOTCLOUD_DATA_MONGODB_HOST => 'mongodb',
         DOTCLOUD_DATA_MONGODB_PORT => 27017,
     };
 
