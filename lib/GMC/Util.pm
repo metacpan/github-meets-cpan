@@ -30,7 +30,10 @@ sub github_config {
 
     my $env = environment();
 
-    return { TOKEN => $env->{GITHUB_TOKEN} || $ENV{GITHUB_TOKEN}, };
+    my $token = $env->{GITHUB_TOKEN} || $ENV{GITHUB_TOKEN};
+    warn 'No GitHub token found in %ENV' unless $token;
+
+    return { $token ? ( TOKEN => $token ) : () };
 }
 
 sub environment {
