@@ -1,8 +1,8 @@
 package GMC::Util;
 
 use Mojo::Base 'Exporter';
-use JSON::MaybeXS;
-use Path::Tiny;
+use JSON::MaybeXS qw( decode_json );
+use Path::Tiny qw( path );
 
 our @EXPORT_OK = qw/environment github_config mongodb_config/;
 my $ENVIRONMENT;
