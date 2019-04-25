@@ -1,12 +1,8 @@
-requires 'Plack::Handler::Starman';
-requires 'Gazelle';
-requires 'Data::Printer';
-requires 'JSON::MaybeXS';
-requires 'LWP::ConsoleLogger';
+requires 'Cpanel::JSON::XS';
+requires 'LWP::UserAgent';
+requires 'LWP::Protocol::https';
 requires 'Mojolicious', '6.01';
 requires 'Mojolicious::Plugin::Mongodb';
+requires 'MongoDB::Connection';
 requires 'Path::Tiny';
 requires 'Pithub', '0.01030';
-requires 'Plack';
-requires 'Plack::Middleware::DebugLogging';
-requires 'WWW::Mechanize';
