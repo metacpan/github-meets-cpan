@@ -1,0 +1,44 @@
+---
+addons:
+  apt:
+    packages:
+      - aspell
+      - aspell-en
+language: perl
+perl:
+  - '5.28'
+before_install:
+  - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+  - source ~/travis-perl-helpers/init
+  - cpanm -n App::cpm Carton::Snapshot
+install:
+  - cpan-install --coverage   # installs coverage prereqs, if enabled
+  - AUTHOR_TESTING=0 cpm install -g --cpanfile cpanfile
+before_script:
+  - coverage-setup
+script:
+  - prove -lvr -j$(test-jobs) t
+after_success:
+  - coverage-report
+cache:
+  directories:
+    - $HOME/perl5
+matrix:
+  allow_failures:
+    - perl: blead
+  fast_finish: 1
+  include:
+    - env: COVERAGE=1
+      perl: '5.28'
+services:
+  - mongodb
+env:
+  global:
+    - AUTHOR_TESTING=0
+    - RELEASE_TESTING=0
+### __app_cisetup__
+# ---
+# force_threaded_perls: 0
+# perl_caching: 1
+
+### __app_cisetup__
