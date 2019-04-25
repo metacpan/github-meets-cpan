@@ -35,6 +35,7 @@ services:
 env:
   global:
     - AUTHOR_TESTING=0
+    - MONGODB_HOST=127.0.0.1
     - RELEASE_TESTING=0
 ### __app_cisetup__
 # ---
