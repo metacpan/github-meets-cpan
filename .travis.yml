@@ -1,28 +1,49 @@
 ---
+services:
+  - mongodb
+  - docker
+
+language: perl
+
+perl:
+  - '5.28'
+
+env:
+  global:
+    - AUTHOR_TESTING=0
+    - MONGODB_HOST=127.0.0.1
+    - RELEASE_TESTING=0
+    - DOCKER_IMAGE_NAME=github-meets-cpan
+
 addons:
   apt:
     packages:
       - aspell
       - aspell-en
-language: perl
-perl:
-  - '5.28'
+
 before_install:
   - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
   - source ~/travis-perl-helpers/init
   - cpanm -n App::cpm Carton::Snapshot
+
 install:
   - cpan-install --coverage   # installs coverage prereqs, if enabled
   - AUTHOR_TESTING=0 cpm install -g --cpanfile cpanfile
+  
 before_script:
   - coverage-setup
+  
 script:
   - prove -lvr -j$(test-jobs) t
+  
 after_success:
   - coverage-report
+  - deploy/build.sh
+
 cache:
   directories:
     - $HOME/perl5
+
 matrix:
   allow_failures:
     - perl: blead
@@ -30,13 +51,15 @@ matrix:
   include:
     - env: COVERAGE=1
       perl: '5.28'
-services:
-  - mongodb
-env:
-  global:
-    - AUTHOR_TESTING=0
-    - MONGODB_HOST=127.0.0.1
-    - RELEASE_TESTING=0
+
+deploy:
+  - provider: script
+    script: 
+      - deploy/push.sh
+    on:
+      branch: master
+
+
 ### __app_cisetup__
 # ---
 # force_threaded_perls: 0
