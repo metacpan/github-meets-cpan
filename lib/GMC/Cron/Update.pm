@@ -2,33 +2,30 @@ package GMC::Cron::Update;
 
 use strict;
 use warnings;
-use DateTime;
+
+use DateTime ();
 use File::Copy qw(move);
 use GMC::Util qw(github_config mongodb_config);
-use JSON::MaybeXS;
-use LWP::UserAgent;
+use Cpanel::JSON::XS qw( decode_json );
+use LWP::UserAgent ();
 use Mojo::Base -base;
 use Mojo::Log;
-use MongoDB;
+use MongoDB ();
 use Pithub 0.01030; # encoding fix
-use WWW::Mechanize;
 
-__PACKAGE__->attr( [qw(db home json log lwp mcpan pithub)] );
+__PACKAGE__->attr( [qw(db home log lwp mcpan pithub)] );
 
 sub new {
     my ( $package, %args ) = @_;
 
     my $mongo  = MongoDB::Connection->new( mongodb_config() );
     my $github = github_config();
-    my $gh_ua  = WWW::Mechanize->new(
-        autocheck => 0,
-        headers   => { 'Accept-Encoding' => 'identity' }
-    );
+    my $gh_ua  = LWP::UserAgent->new;
+    $gh_ua->default_header( 'Accept-Encoding' => 'identity' );
 
     return bless {
         db   => $mongo->get_database('db'),
         home => $args{home},
-        json => JSON->new->utf8,
         log  => Mojo::Log->new( path => "$args{home}/log/update.log" ),
         lwp  => LWP::UserAgent->new,
         mcpan =>
@@ -36,7 +33,7 @@ sub new {
         pithub => Pithub->new(
             auto_pagination => 1,
             per_page        => 100,
-            token           => $github->{TOKEN},
+            $github->{TOKEN} ? ( token => $github->{TOKEN} ) : (),
             ua              => $gh_ua,
         ),
     } => $package;
@@ -189,7 +186,7 @@ sub fetch_coderwall_user {
         return;
     }
 
-    my $data = eval { $self->json->decode( $response->content ) };
+    my $data = eval { decode_json( $response->content ) };
     if ($@) {
         $self->log->warn( sprintf '%-9s Error decoding data from %s: %s',
             $user->{pauseid}, $url, $@ );
@@ -211,7 +208,7 @@ sub fetch_metacpan_users {
     my $response = $self->lwp->get( $self->mcpan );
     die $response->status_line unless $response->is_success;
 
-    my $data = $self->json->decode( $response->content );
+    my $data = decode_json( $response->content );
 
     my @result = ();
     foreach my $row ( @{ $data->{hits}{hits} } ) {

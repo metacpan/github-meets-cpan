@@ -7,7 +7,7 @@ use GMC::Util qw(mongodb_config);
 sub startup {
     my $self = shift;
 
-    $self->static->paths( [ $self->home->rel_dir('static') ] );
+    $self->static->paths( [ $self->home->rel_file('static') ] );
 
     $self->plugin(
         mongodb => {

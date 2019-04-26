@@ -1,10 +1,10 @@
 package GMC::Util;
 
 use Mojo::Base 'Exporter';
-use JSON::MaybeXS;
-use Path::Tiny;
+use Cpanel::JSON::XS qw( decode_json );
+use Path::Tiny qw( path );
 
-our @EXPORT_OK = qw/environment github_config mongodb_config/;
+our @EXPORT_OK = qw( environment github_config mongodb_config );
 my $ENVIRONMENT;
 
 sub mongodb_config {
@@ -30,7 +30,10 @@ sub github_config {
 
     my $env = environment();
 
-    return { TOKEN => $env->{GITHUB_TOKEN} || $ENV{GITHUB_TOKEN}, };
+    my $token = $env->{GITHUB_TOKEN} || $ENV{GITHUB_TOKEN};
+    warn 'No GitHub token found in %ENV' unless $token;
+
+    return { $token ? ( TOKEN => $token ) : () };
 }
 
 sub environment {
@@ -38,16 +41,16 @@ sub environment {
 
     return $ENVIRONMENT if $ENVIRONMENT;
 
-    my $file = "$ENV{HOME}/github-meets-cpan/environment.json";
+    my $file = path('environment.json');
 
-    if ( -f $file ) {
-        my $env = path($file)->slurp_raw;
+    if ( $file->exists ) {
+        my $env = $file->slurp_raw;
         $ENVIRONMENT = decode_json($env);
         return $ENVIRONMENT;
     }
 
     $ENVIRONMENT = {
-        DOTCLOUD_DATA_MONGODB_HOST => 'localhost',
+        DOTCLOUD_DATA_MONGODB_HOST => $ENV{MONGODB_HOST} || 'mongodb',
         DOTCLOUD_DATA_MONGODB_PORT => 27017,
     };
 

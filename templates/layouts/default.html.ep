@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8' />
     <title>GitHub Meets CPAN<% if ($title) { %>: <%= title %><% } %></title>
-    <link rel="stylesheet" href="<%= url_for '/static/screen.css?3' %>" type="text/css" />
+    <link rel="stylesheet" href="<%= url_for '/screen.css?3' %>" type="text/css" />
 </head>
 <body>
 <a href="https://github.com/metacpan/github-meets-cpan"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" /></a>
@@ -17,11 +17,11 @@
         </ul>
     </div>
     <div class="logos">
-        <a href="https://github.com"><img src="<%= url_for '/static/github.png?1' %>" alt="GitHub" /></a>
+        <a href="https://github.com"><img src="<%= url_for '/github.png?1' %>" alt="GitHub" /></a>
         <span class="heart"><a href="<%= url_for '/' %>">&#9829;</a></span>
-        <a href="https://metacpan.org"><img src="<%= url_for '/static/cpan.png?1' %>" alt="CPAN" /></a>
+        <a href="https://metacpan.org"><img src="<%= url_for '/cpan.png?1' %>" alt="CPAN" /></a>
     </div>
-    <% if ($db_status) { %><div class="status"><a href="<%= url_for '/static/update.log.txt' %>">Last Update: <%= $db_status->{last_update} %></a></div><% } %>
+    <% if ($db_status) { %><div class="status"><a href="<%= url_for '/update.log.txt' %>">Last Update: <%= $db_status->{last_update} %></a></div><% } %>
 </div>
 <div class="content">
 <%= content %>

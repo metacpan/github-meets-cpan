@@ -1,0 +1,21 @@
+---
+version: "3.4"
+services:
+  mongodb:
+    image: mvertes/alpine-mongo:latest
+    ports:
+      - "27017:27017"
+  web:
+    build: .
+    command: "/wait-for-it.sh mongodb:27017 -- morbo script/app.pl"
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+  web-cron:
+    build: .
+    command: "/wait-for-it.sh mongodb:27017 -- perl cron/update.pl"
+    depends_on:
+      - mongodb
+    volumes:
+      - ${PWD}/environment.json:/code/environment.json
