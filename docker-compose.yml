@@ -18,4 +18,7 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - ${PWD}/environment.json:/code/environment.json
+      - type: bind
+        source: ${MC_CONF_PRIVATE_DIR:-.}/github-meets-cpan/environment.json
+        target: /code/environment.json
+        read_only: true
