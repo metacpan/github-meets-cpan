@@ -43,7 +43,7 @@ sub environment {
 
     my $file = path('environment.json');
 
-    if ( $file->exists ) {
+    if ( $file->is_file ) {
         my $env = $file->slurp_raw;
         $ENVIRONMENT = decode_json($env);
         return $ENVIRONMENT;
