@@ -3,13 +3,15 @@ version: "3.4"
 services:
   mongodb:
     image: mvertes/alpine-mongo:latest
-    ports:
-      - "27017:27017"
+    networks:
+      - mongo
   web:
     build: .
     command: "/wait-for-it.sh mongodb:27017 -- morbo script/app.pl"
     depends_on:
       - mongodb
+    networks:
+      - mongo
     ports:
       - "3000:3000"
   web-cron:
@@ -22,3 +24,7 @@ services:
         source: ${MC_CONF_PRIVATE_DIR:-.}/github-meets-cpan/environment.json
         target: /code/environment.json
         read_only: true
+    networks:
+      - mongo
+networks:
+  mongo:
