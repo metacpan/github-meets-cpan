@@ -7,6 +7,7 @@ services:
       - "27017:27017"
   web:
     build: .
+    command: "/wait-for-it.sh mongodb:27017 -- morbo script/app.pl"
     depends_on:
       - mongodb
     ports:
