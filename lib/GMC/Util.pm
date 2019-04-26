@@ -4,7 +4,7 @@ use Mojo::Base 'Exporter';
 use JSON::MaybeXS qw( decode_json );
 use Path::Tiny qw( path );
 
-our @EXPORT_OK = qw/environment github_config mongodb_config/;
+our @EXPORT_OK = qw( environment github_config mongodb_config );
 my $ENVIRONMENT;
 
 sub mongodb_config {
@@ -41,10 +41,10 @@ sub environment {
 
     return $ENVIRONMENT if $ENVIRONMENT;
 
-    my $file = "$ENV{HOME}/github-meets-cpan/environment.json";
+    my $file = path('environment.json');
 
-    if ( -f $file ) {
-        my $env = path($file)->slurp_raw;
+    if ( $file->exists ) {
+        my $env = $file->slurp_raw;
         $ENVIRONMENT = decode_json($env);
         return $ENVIRONMENT;
     }
