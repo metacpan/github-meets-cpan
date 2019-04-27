@@ -1,5 +1,7 @@
 # GitHub Meets CPAN
 
+[![Build Status](https://travis-ci.com/metacpan/github-meets-cpan.svg?branch=master)](https://travis-ci.com/metacpan/github-meets-cpan)
+
 [github-meets-cpan](http://gh.metacpan.org/)
 
 This project connects GitHub Users to MetaCPAN Users. It uses the
