@@ -6,7 +6,7 @@ services:
     networks:
       - mongo
   web:
-    build: .
+    image: metacpan/github-meets-cpan:latest
     command: "/wait-for-it.sh mongodb:27017 -- morbo script/app.pl"
     depends_on:
       - mongodb
@@ -15,7 +15,7 @@ services:
     ports:
       - "127.0.0.1:${GH_CPAN_SITE_PORT:-3000}:3000"
   web-cron:
-    build: .
+    image: metacpan/github-meets-cpan:latest
     command: "/wait-for-it.sh mongodb:27017 -- perl cron/update.pl"
     depends_on:
       - mongodb
