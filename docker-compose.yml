@@ -13,7 +13,7 @@ services:
     networks:
       - mongo
     ports:
-      - "3000:3000"
+      - "127.0.0.1:${GH_CPAN_SITE_PORT:-3000}:3000"
   web-cron:
     build: .
     command: "/wait-for-it.sh mongodb:27017 -- perl cron/update.pl"
