@@ -3,19 +3,28 @@ version: "3.4"
 services:
   mongodb:
     image: mvertes/alpine-mongo:latest
-    ports:
-      - "27017:27017"
+    networks:
+      - mongo
   web:
-    build: .
+    image: metacpan/github-meets-cpan:latest
     command: "/wait-for-it.sh mongodb:27017 -- morbo script/app.pl"
     depends_on:
       - mongodb
+    networks:
+      - mongo
     ports:
-      - "3000:3000"
+      - "127.0.0.1:${GH_CPAN_SITE_PORT:-3000}:3000"
   web-cron:
-    build: .
+    image: metacpan/github-meets-cpan:latest
     command: "/wait-for-it.sh mongodb:27017 -- perl cron/update.pl"
     depends_on:
       - mongodb
     volumes:
-      - ${PWD}/environment.json:/code/environment.json
+      - type: bind
+        source: ${MC_CONF_PRIVATE_DIR:-.}/github-meets-cpan/environment.json
+        target: /code/environment.json
+        read_only: true
+    networks:
+      - mongo
+networks:
+  mongo:
