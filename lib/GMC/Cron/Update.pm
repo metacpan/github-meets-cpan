@@ -26,7 +26,7 @@ sub new {
     return bless {
         db   => $mongo->get_database('db'),
         home => $args{home},
-        log  => Mojo::Log->new( path => "$args{home}/log/update.log" ),
+        log  => Mojo::Log->new,
         lwp  => LWP::UserAgent->new,
         mcpan =>
             'https://fastapi.metacpan.org/v1/author/_search?q=profile.name:github&size=1000',
