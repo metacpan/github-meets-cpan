@@ -163,8 +163,9 @@ sub fetch_github_repos {
     }
 
     my @repos = ();
-    while ( my $row = $result->next ) {
-        push @repos, $row;
+    while ( my $repo = $result->next ) {
+        next if $repo->{archived};
+        push @repos, $repo;
     }
     $self->log->info(
         sprintf
