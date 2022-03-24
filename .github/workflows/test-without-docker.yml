@@ -1,0 +1,33 @@
+---
+name: Install from cpanfile
+
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: perl:${{ matrix.perl-version }}
+    strategy:
+      fail-fast: true
+      matrix:
+        perl-version:
+          - '5.24'
+          - '5.34'
+    name: Dockerless Perl ${{ matrix.perl-version }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+      - name: Install deps using cpm
+        uses: perl-actions/install-with-cpm@v1
+        with:
+          install: Carton::Snapshot
+          sudo: false
+      - name: Install deps using cpm
+        uses: perl-actions/install-with-cpm@v1
+        with:
+          cpanfile: 'cpanfile'
+          sudo: false
+      - name: Test
+        run: prove -lr t
+
