@@ -18,7 +18,7 @@ __PACKAGE__->attr( [qw(db home log lwp mcpan pithub)] );
 sub new {
     my ( $package, %args ) = @_;
 
-    my $mongo  = MongoDB::Connection->new( mongodb_config() );
+    my $mongo  = MongoDB->connect( mongodb_config() );
     my $github = github_config();
     my $gh_ua  = LWP::UserAgent->new;
     $gh_ua->default_header( 'Accept-Encoding' => 'identity' );
