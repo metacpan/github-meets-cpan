@@ -1,0 +1,16 @@
+---
+name: Docker build
+on: [push, pull_request,workflow_dispatch]
+
+jobs:
+  docker:
+    runs-on: ubuntu-20.04
+    name: Docker
+    steps:
+      - uses: actions/checkout@v3
+      - name: docker build
+        run: docker build . -t metacpan/github-meets-cpan:latest
+      - name: docker-compose up
+        run: docker-compose up -d github-meets-cpan
+      - name: run Perl tests
+        run: docker-compose exec -T github-meets-cpan carton exec prove -lvr t

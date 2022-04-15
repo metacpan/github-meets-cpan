@@ -3,6 +3,9 @@ package GMC;
 use Mojo::Base 'Mojolicious';
 use GMC::Util qw(mongodb_config);
 
+# Required by Mojolicious::Plugin::Mongodb
+use MongoDB::Connection (); ## no perlimports
+
 # This method will run once at server start
 sub startup {
     my $self = shift;

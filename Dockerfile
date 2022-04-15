@@ -1,6 +1,11 @@
 FROM metacpan/metacpan-base:latest
-ADD . /code
+
+COPY . /code
 WORKDIR /code
-RUN cpm install --without-test -g --cpanfile cpanfile
+
+RUN cpanm --notest Carton && \
+  cpanm --notest --local-lib local https://cpan.metacpan.org/authors/id/M/MO/MONGODB/MongoDB-v0.708.4.0.tar.gz && \
+  carton install --deployment
+
 EXPOSE 3000
-CMD ["morbo", "script/app.pl"]
+ CMD ["carton", "exec", "morbo", "script/app.pl"]
