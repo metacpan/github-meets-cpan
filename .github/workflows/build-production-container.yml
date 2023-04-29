@@ -1,0 +1,28 @@
+---
+name: Build deployment container
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  docker:
+    runs-on: ubuntu-22.04
+    name: Docker Push
+    steps:
+      - uses: actions/checkout@v3
+      - name: docker build
+        run: docker build . -t metacpan/github-meets-cpan:latest
+      - name: docker-compose up
+        run: docker-compose up -d github-meets-cpan
+      - name: run Perl tests
+        run: docker-compose exec -T github-meets-cpan carton exec prove -lvr t
+      - name: docker-compose down
+        run: docker-compose down
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Push build to Docker Hub
+        run: docker push metacpan/github-meets-cpan:latest
